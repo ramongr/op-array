@@ -1,11 +1,3 @@
-if (!Array.prototype.last) {
-  Object.defineProperty(Array.prototype, 'last', {
-    get: function() {
-      return this[this.length - 1];
-    },
-  });
-}
-
 if (!Array.prototype.intersection) {
   Array.prototype.intersection = function(arr) {
     return this.filter((item) => arr.indexOf(item) !== -1);

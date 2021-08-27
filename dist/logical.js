@@ -1,13 +1,5 @@
 "use strict";
 
-if (!Array.prototype.last) {
-  Object.defineProperty(Array.prototype, 'last', {
-    get: function get() {
-      return this[this.length - 1];
-    }
-  });
-}
-
 if (!Array.prototype.intersection) {
   Array.prototype.intersection = function (arr) {
     return this.filter(function (item) {

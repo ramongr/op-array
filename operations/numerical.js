@@ -56,18 +56,17 @@ if (!Array.prototype.median) {
     }
 
     return median;
-  }
+  };
 }
 
 if (!Array.prototype.mode) {
+  const firstIndices = (accumulator, arr) => [...accumulator, arr.first];
   const secondIndices = (accumulator, arr) => [...accumulator, arr.second];
   Array.prototype.mode = function() {
-    const maxOccurenceValue = this.occurences().reduce(secondIndices).max()
+    const occurences = this.occurences();
+    const occurenceTimes = occurences.reduce(secondIndices);
+    const occurenceValues = occurences.reduce(firstIndices)
 
-    const occurenceKeys = Object.keys(occurences);
-
-    return occurenceKeys.filter((occurenceKey) => (
-      occurences[occurenceKey] === maxValue
-    ));
-  }
+    return occurenceValues.filter((value) => value === occurenceTimes.max());
+  };
 }

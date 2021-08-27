@@ -71,15 +71,20 @@ if (!Array.prototype.median) {
 }
 
 if (!Array.prototype.mode) {
+  var firstIndices = function firstIndices(accumulator, arr) {
+    return [].concat(_toConsumableArray(accumulator), [arr.first]);
+  };
+
   var secondIndices = function secondIndices(accumulator, arr) {
     return [].concat(_toConsumableArray(accumulator), [arr.second]);
   };
 
   Array.prototype.mode = function () {
-    var maxOccurenceValue = this.occurences().reduce(secondIndices).max();
-    var occurenceKeys = Object.keys(occurences);
-    return occurenceKeys.filter(function (occurenceKey) {
-      return occurences[occurenceKey] === maxValue;
+    var occurences = this.occurences();
+    var occurenceTimes = occurences.reduce(secondIndices);
+    var occurenceValues = occurences.reduce(firstIndices);
+    return occurenceValues.filter(function (value) {
+      return value === occurenceTimes.max();
     });
   };
 }

@@ -1,5 +1,5 @@
 if (!Array.prototype.unique) {
-  Array.prototype.flat = function() {
+  Array.prototype.unique = function() {
     return Array.from(new Set(this));
   };
 }
