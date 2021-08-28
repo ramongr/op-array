@@ -1,4 +1,5 @@
 # OP Array
+[![Maintainability](https://api.codeclimate.com/v1/badges/123da94caf5cc7178bec/maintainability)](https://codeclimate.com/github/ramongr/op-array/maintainability)
 
 Using the Array's prototype chain to add extra methods.
 
