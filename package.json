@@ -1,7 +1,13 @@
 {
   "name": "op-array",
   "version": "0.0.3",
-  "description": "Adding extra methods to the Javascript Array",
+  "description": "Adding extra functions to the Javascript Array",
+  "homepage": "https://github.com/ramongr/op-array",
+  "keywords": ["prototype", "array", "functions"],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/ramongr/op-array.git"
+  },
   "scripts": {
     "build": "babel operations -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"

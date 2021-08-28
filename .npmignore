@@ -4,3 +4,4 @@ shared/
 babel.config.json
 .eslintrc.json
 package-lock.json
+.nvmrc
