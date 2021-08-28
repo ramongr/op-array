@@ -1,7 +1,8 @@
-node_modules/
-operations/
-shared/
 babel.config.json
 .eslintrc.json
 package-lock.json
 .nvmrc
+node_modules/
+operations/
+shared/
+specs/
