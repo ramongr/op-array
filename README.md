@@ -1,4 +1,5 @@
 # OP Array
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/123da94caf5cc7178bec/maintainability)](https://codeclimate.com/github/ramongr/op-array/maintainability)
 
 Using the Array's prototype chain to add extra methods.
@@ -16,6 +17,8 @@ or
 npm install op-array
 ```
 
+## How to use
+
 ```javascript
 // findBy, findById, where
 import 'op-array/dist/collections';
@@ -28,3 +31,15 @@ import 'op-array/dist/positional';
 // For operations like: unique, flat, inGroups...
 import 'op-array/dist/transformations';
 ```
+
+## Functions - Collections
+
+[Click here to see examples](docs/collections.md)
+
+## Functions - Logical
+
+[Click here to see examples](docs/logical.md)
+
+## Functions - Numerical
+
+[Click here to see examples](docs/numerical.md)

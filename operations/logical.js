@@ -25,8 +25,8 @@ if (!Array.prototype.except) {
 
 if (!Array.prototype.union) {
   Array.prototype.union = function(arr) {
-    const unionizableArray = this.except(arr);
+    const unionizableArray = arr.except(this);
 
-    return this.concat(unionizableArray);
+    return [...this, ...unionizableArray];
   };
 }
