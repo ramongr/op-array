@@ -1,26 +1,22 @@
 "use strict";
 
-if (!Array.prototype.findBy) {
-  Array.prototype.findBy = function (key, value) {
-    return this.find(function (item) {
-      return item[key] === value;
-    });
-  };
-}
+var _nestedObject = require("../shared/nested-object");
 
-if (!Array.prototype.findById) {
-  Array.prototype.findById = function (value) {
-    return this.find(function (_ref) {
-      var id = _ref.id;
-      return id === value;
-    });
-  };
-}
+Array.prototype.findBy = function (key, value) {
+  return this.find(function (item) {
+    return (0, _nestedObject.nestedObjectKey)(item, key) === value;
+  });
+};
 
-if (!Array.prototype.where) {
-  Array.prototype.where = function (key, value) {
-    return this.filter(function (item) {
-      return item[key] === value;
-    });
-  };
-}
+Array.prototype.findById = function (value) {
+  return this.find(function (_ref) {
+    var id = _ref.id;
+    return id === value;
+  });
+};
+
+Array.prototype.where = function (key, value) {
+  return this.filter(function (item) {
+    return (0, _nestedObject.nestedObjectKey)(item, key) === value;
+  });
+};
