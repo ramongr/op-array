@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1630191223878" clover="3.2.0">
-  <project timestamp="1630191223878" name="All files">
-    <metrics statements="101" coveredstatements="55" conditionals="57" coveredconditionals="21" methods="42" coveredmethods="12" elements="200" coveredelements="88" complexity="0" loc="101" ncloc="101" packages="2" files="6" classes="6"/>
+<coverage generated="1630277871665" clover="3.2.0">
+  <project timestamp="1630277871665" name="All files">
+    <metrics statements="109" coveredstatements="60" conditionals="61" coveredconditionals="22" methods="46" coveredmethods="14" elements="216" coveredelements="96" complexity="0" loc="109" ncloc="109" packages="2" files="8" classes="8"/>
     <package name="operations">
-      <metrics statements="95" coveredstatements="49" conditionals="57" coveredconditionals="21" methods="36" coveredmethods="6"/>
+      <metrics statements="98" coveredstatements="51" conditionals="59" coveredconditionals="22" methods="37" coveredmethods="6"/>
       <file name="collections.js" path="/Users/ramongr/Documents/Projects/js/op-array/operations/collections.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="8" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="8" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="10" count="24" type="stmt"/>
+        <line num="10" count="8" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="24" type="stmt"/>
       </file>
       <file name="logical.js" path="/Users/ramongr/Documents/Projects/js/op-array/operations/logical.js">
         <metrics statements="17" coveredstatements="8" conditionals="15" coveredconditionals="4" methods="6" coveredmethods="0"/>
@@ -86,37 +86,40 @@
         <line num="20" count="0" type="stmt"/>
       </file>
       <file name="transformations.js" path="/Users/ramongr/Documents/Projects/js/op-array/operations/transformations.js">
-        <metrics statements="26" coveredstatements="9" conditionals="16" coveredconditionals="5" methods="9" coveredmethods="0"/>
-        <line num="1" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="7" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="13" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
+        <metrics statements="29" coveredstatements="11" conditionals="18" coveredconditionals="6" methods="10" coveredmethods="0"/>
+        <line num="3" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="9" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="15" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="16" count="1" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="27" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="37" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
+        <line num="20" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="29" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="39" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="40" count="1" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="42" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="45" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="54" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
       </file>
     </package>
     <package name="shared">
-      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <metrics statements="11" coveredstatements="9" conditionals="2" coveredconditionals="0" methods="9" coveredmethods="8"/>
       <file name="arithmetic.js" path="/Users/ramongr/Documents/Projects/js/op-array/shared/arithmetic.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
         <line num="8" count="1" type="stmt"/>
@@ -125,6 +128,17 @@
         <line num="35" count="2" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
+      </file>
+      <file name="empty-values.js" path="/Users/ramongr/Documents/Projects/js/op-array/shared/empty-values.js">
+        <metrics statements="2" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
+      </file>
+      <file name="nested-object.js" path="/Users/ramongr/Documents/Projects/js/op-array/shared/nested-object.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="32" type="stmt"/>
+        <line num="3" count="32" type="stmt"/>
       </file>
     </package>
   </project>

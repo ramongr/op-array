@@ -1,3 +1,5 @@
+import { hasValue } from '../shared/empty-values';
+
 if (!Array.prototype.unique) {
   Array.prototype.unique = function() {
     return Array.from(new Set(this));
@@ -46,5 +48,11 @@ if (!Array.prototype.occurences) {
       }
     });
     return Array.from(occurences);
+  };
+}
+
+if (!Array.prototype.compact) {
+  Array.prototype.compact = function() {
+    return this.filter(hasValue);
   };
 }
