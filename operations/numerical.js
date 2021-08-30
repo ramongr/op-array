@@ -60,13 +60,14 @@ if (!Array.prototype.median) {
 }
 
 if (!Array.prototype.mode) {
-  const firstIndices = (accumulator, arr) => [...accumulator, arr.first];
-  const secondIndices = (accumulator, arr) => [...accumulator, arr.second];
+  const firstIndices = (arr) => arr.first;
+  const secondIndices = (arr) => arr.second;
+
   Array.prototype.mode = function() {
     const occurences = this.occurences();
-    const occurenceTimes = occurences.reduce(secondIndices);
-    const occurenceValues = occurences.reduce(firstIndices)
+    const maxOccurenceTime = occurences.map(secondIndices).max();
+    const findValueByOccurrence = ([_, times]) => times === maxOccurenceTime;
 
-    return occurenceValues.filter((value) => value === occurenceTimes.max());
+    return occurences.filter(findValueByOccurrence).map(firstIndices);
   };
 }
