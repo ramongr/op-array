@@ -1,4 +1,4 @@
-import { hasValue } from '../shared/empty-values';
+import {hasValue} from '../shared/empty-values';
 
 if (!Array.prototype.unique) {
   Array.prototype.unique = function() {
@@ -37,17 +37,17 @@ if (!Array.prototype.inGroups) {
 }
 
 if (!Array.prototype.occurences) {
-  Array.prototype.occurences = function() {
-    const occurences = new Map();
+  Array.prototype.occurrences = function() {
+    const occurrences = new Map();
     this.forEach((item) => {
-      const itemValue = occurences.get(item);
+      const itemValue = occurrences.get(item);
       if (itemValue === undefined) {
-        occurences.set(item, 1);
+        occurrences.set(item, 1);
       } else {
-        occurences.set(item, itemValue + 1);
+        occurrences.set(item, itemValue + 1);
       }
     });
-    return Array.from(occurences);
+    return Array.from(occurrences);
   };
 }
 

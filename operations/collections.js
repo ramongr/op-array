@@ -29,3 +29,8 @@ Array.prototype.where = function(key, value) {
   return this.filter((item) => nestedObjectKey(item, key) === value);
 };
 
+Array.prototype.extract = function(key) {
+  const keyFromArray = (arr, item) => [...arr, {[key]: item[key]}];
+  return this.reduce(keyFromArray, []);
+};
+

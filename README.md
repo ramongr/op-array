@@ -43,3 +43,11 @@ import 'op-array/dist/transformations';
 ## Functions - Numerical
 
 [Click here to see examples](docs/numerical.md)
+
+## Functions - Positional
+
+[Click here to see examples](docs/positional.md)
+
+## Functions - Transformations
+
+[Click here to see examples](docs/transformations.md)

@@ -29,7 +29,7 @@ if (!Array.prototype.exists) {
     }
 
     var arr = Array.isArray(itemOrArray) ? itemOrArray : [itemOrArray];
-    return this.intersection(arr).length > 0;
+    return this.intersection(arr).length === arr.length;
   };
 }
 

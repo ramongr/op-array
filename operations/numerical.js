@@ -1,3 +1,5 @@
+import './transformations';
+import './positional';
 import {
   addition, halfPoint, isEven, multiplication, subtraction,
 } from '../shared/arithmetic';

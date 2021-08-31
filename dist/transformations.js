@@ -1,5 +1,7 @@
 "use strict";
 
+var _emptyValues = require("../shared/empty-values");
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -62,17 +64,23 @@ if (!Array.prototype.inGroups) {
 }
 
 if (!Array.prototype.occurences) {
-  Array.prototype.occurences = function () {
-    var occurences = new Map();
+  Array.prototype.occurrences = function () {
+    var occurrences = new Map();
     this.forEach(function (item) {
-      var itemValue = occurences.get(item);
+      var itemValue = occurrences.get(item);
 
       if (itemValue === undefined) {
-        occurences.set(item, 1);
+        occurrences.set(item, 1);
       } else {
-        occurences.set(item, itemValue + 1);
+        occurrences.set(item, itemValue + 1);
       }
     });
-    return Array.from(occurences);
+    return Array.from(occurrences);
+  };
+}
+
+if (!Array.prototype.compact) {
+  Array.prototype.compact = function () {
+    return this.filter(_emptyValues.hasValue);
   };
 }

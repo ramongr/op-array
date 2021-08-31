@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.11% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/19</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.67% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/15</span>
+                <span class='fraction'>9/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.06% </span>
+                <span class="strong">94.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/17</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,66 +91,66 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="missing-if-branch" title="else path not taken" >E</span>if (!Array.prototype.intersection) {
-  Array.prototype.intersection = <span class="fstat-no" title="function not covered" >fu</span>nction(arr) {
-<span class="cstat-no" title="statement not covered" >    return this.filter(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >arr.indexOf(item) !== -1)</span>;</span>
+  Array.prototype.intersection = function(arr) {
+    return this.filter((item) =&gt; arr.indexOf(item) !== -1);
   };
 }
 &nbsp;
 <span class="missing-if-branch" title="else path not taken" >E</span>if (!Array.prototype.exists) {
-  Array.prototype.exists = <span class="fstat-no" title="function not covered" >fu</span>nction(itemOrArray = <span class="branch-0 cbranch-no" title="branch not covered" >[])</span> {
-<span class="cstat-no" title="statement not covered" >    if (this.length === 0) {</span>
+  Array.prototype.exists = function(itemOrArray = <span class="branch-0 cbranch-no" title="branch not covered" >[])</span> {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.length === 0) {
 <span class="cstat-no" title="statement not covered" >      return false;</span>
     }
-    const arr = <span class="cstat-no" title="statement not covered" >Array.isArray(itemOrArray) ? itemOrArray : [itemOrArray];</span>
-<span class="cstat-no" title="statement not covered" >    return this.intersection(arr).length &gt; 0;</span>
+    const arr = Array.isArray(itemOrArray) ? itemOrArray : [itemOrArray];
+    return this.intersection(arr).length === arr.length;
   };
 }
 &nbsp;
 <span class="missing-if-branch" title="else path not taken" >E</span>if (!Array.prototype.except) {
-  Array.prototype.except = <span class="fstat-no" title="function not covered" >fu</span>nction(itemOrArray) {
-    const arr = <span class="cstat-no" title="statement not covered" >Array.isArray(itemOrArray) ? itemOrArray : [itemOrArray];</span>
+  Array.prototype.except = function(itemOrArray) {
+    const arr = Array.isArray(itemOrArray) ? itemOrArray : [itemOrArray];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return this.filter(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >arr.indexOf(item) === -1)</span>;</span>
+    return this.filter((item) =&gt; arr.indexOf(item) === -1);
   };
 }
 &nbsp;
 &nbsp;
 <span class="missing-if-branch" title="else path not taken" >E</span>if (!Array.prototype.union) {
-  Array.prototype.union = <span class="fstat-no" title="function not covered" >fu</span>nction(arr) {
-    const unionizableArray = <span class="cstat-no" title="statement not covered" >arr.except(this);</span>
+  Array.prototype.union = function(arr) {
+    const unionizableArray = arr.except(this);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return [...this, ...unionizableArray];</span>
+    return [...this, ...unionizableArray];
   };
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -160,7 +160,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Aug 29 2021 23:57:51 GMT+0100 (Western European Summer Time)
+                at Wed Sep 01 2021 00:11:22 GMT+0100 (Western European Summer Time)
             </div>
         </div>
         <script src="../prettify.js"></script>
