@@ -92,8 +92,8 @@ if (!Array.prototype.mode) {
   };
 
   Array.prototype.mode = function () {
-    var occurences = this.occurences();
-    var maxOccurenceTime = occurences.map(secondIndices).max();
+    var occurrences = this.occurrences();
+    var maxOccurenceTime = occurrences.map(secondIndices).max();
 
     var findValueByOccurrence = function findValueByOccurrence(_ref) {
       var _ref2 = _slicedToArray(_ref, 2),
@@ -103,6 +103,6 @@ if (!Array.prototype.mode) {
       return times === maxOccurenceTime;
     };
 
-    return occurences.filter(findValueByOccurrence).map(firstIndices);
+    return occurrences.filter(findValueByOccurrence).map(firstIndices);
   };
 }

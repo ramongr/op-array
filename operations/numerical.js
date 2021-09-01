@@ -66,10 +66,10 @@ if (!Array.prototype.mode) {
   const secondIndices = (arr) => arr.second;
 
   Array.prototype.mode = function() {
-    const occurences = this.occurences();
-    const maxOccurenceTime = occurences.map(secondIndices).max();
+    const occurrences = this.occurrences();
+    const maxOccurenceTime = occurrences.map(secondIndices).max();
     const findValueByOccurrence = ([_, times]) => times === maxOccurenceTime;
 
-    return occurences.filter(findValueByOccurrence).map(firstIndices);
+    return occurrences.filter(findValueByOccurrence).map(firstIndices);
   };
 }

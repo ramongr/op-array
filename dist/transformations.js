@@ -63,7 +63,7 @@ if (!Array.prototype.inGroups) {
   };
 }
 
-if (!Array.prototype.occurences) {
+if (!Array.prototype.occurrences) {
   Array.prototype.occurrences = function () {
     var occurrences = new Map();
     this.forEach(function (item) {

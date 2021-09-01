@@ -10,10 +10,10 @@
 </details>
 
 <details>
-  <summary>unique</summary>
+  <summary>flat</summary>
 
   ```javascript
-    const collection = [1, [2, 2], 3, 4]
+    const collection = [[1, 2], [2, 3, 4]]
 
     collection.flat() // Returns [1, 2, 2, 3, 4]
   ```
