@@ -23,6 +23,12 @@ describe('.intersection', () => {
 describe('.exists', () => {
   const firstArray = [1, 2, 3];
 
+  describe('when array is empty', () => {
+    test('it returns false', () => {
+      expect([].exists(1)).toBeFalsy();
+    })
+  })
+
   describe('when the entry does not exist', () => {
     test('it returns false', () => {
       expect(firstArray.exists(4)).toBeFalsy();

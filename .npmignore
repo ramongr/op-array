@@ -1,7 +1,8 @@
-babel.config.json
 .eslintrc.json
-package-lock.json
 .nvmrc
+babel.config.json
+package-lock.json
+.vscode/
 node_modules/
 operations/
 shared/
