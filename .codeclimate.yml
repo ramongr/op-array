@@ -2,3 +2,4 @@ exclude_patterns:
 - "coverage/"
 - "node_modules/"
 - "dist/"
+- "specs/"
