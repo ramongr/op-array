@@ -1,4 +1,4 @@
-import {nestedObjectKey} from '../shared/nested-object';
+import {nestedObjectValue, objectFromKeys} from '../shared/nested-object';
 
 /**
  * Finds within a collection for a key with a given value
@@ -7,7 +7,7 @@ import {nestedObjectKey} from '../shared/nested-object';
  * @return {(undefined|Array)}
  */
 Array.prototype.findBy = function(key, value) {
-  return this.find((item) => nestedObjectKey(item, key) === value);
+  return this.find((item) => nestedObjectValue(item, key) === value);
 };
 
 /**
@@ -26,11 +26,17 @@ Array.prototype.findById = function(value) {
  * @return {Array}
  */
 Array.prototype.where = function(key, value) {
-  return this.filter((item) => nestedObjectKey(item, key) === value);
+  return this.filter((item) => nestedObjectValue(item, key) === value);
 };
 
-Array.prototype.extract = function(key) {
-  const keyFromArray = (arr, item) => [...arr, {[key]: item[key]}];
+/**
+ * Filters every item in a collection with a given set of keys
+ * @param {Array} keys
+ * @return {Array}
+ */
+Array.prototype.extract = function(keys) {
+  const keyFromArray = (arr, item) => [...arr, objectFromKeys(item, keys)];
+
   return this.reduce(keyFromArray, []);
 };
 

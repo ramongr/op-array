@@ -72,14 +72,20 @@ describe('.where', () => {
 describe('.extract', () => {
   describe('when there is a key to extract', () => {
     test('it returns a result', () => {
-      expect(collection.extract('id'))
-        .toEqual([{id: 1}, {id: 2}, {id: 3}, {id: 3}, {id: 4}, {id: 5}]);
+      expect(collection.extract(['id']))
+          .toEqual([{id: 1}, {id: 2}, {id: 3}, {id: 3}, {id: 4}, {id: 5}]);
+    });
+  });
+
+  describe('when there are keys to extract', () => {
+    test('it returns a result', () => {
+      expect(collection.extract(['id', 'name'])).toEqual(collection);
     });
   });
 
   describe('when there no value to find', () => {
     test('it returns undefined', () => {
-      expect(collection.extract('test')).toEqual([
+      expect(collection.extract(['test'])).toEqual([
         {test: undefined}, {test: undefined}, {test: undefined},
         {test: undefined}, {test: undefined}, {test: undefined},
       ]);

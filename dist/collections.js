@@ -2,8 +2,6 @@
 
 var _nestedObject = require("../shared/nested-object");
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -24,7 +22,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
  */
 Array.prototype.findBy = function (key, value) {
   return this.find(function (item) {
-    return (0, _nestedObject.nestedObjectKey)(item, key) === value;
+    return (0, _nestedObject.nestedObjectValue)(item, key) === value;
   });
 };
 /**
@@ -50,13 +48,19 @@ Array.prototype.findById = function (value) {
 
 Array.prototype.where = function (key, value) {
   return this.filter(function (item) {
-    return (0, _nestedObject.nestedObjectKey)(item, key) === value;
+    return (0, _nestedObject.nestedObjectValue)(item, key) === value;
   });
 };
+/**
+ * Filters every item in a collection with a given set of keys
+ * @param {Array} keys
+ * @return {Array}
+ */
 
-Array.prototype.extract = function (key) {
+
+Array.prototype.extract = function (keys) {
   var keyFromArray = function keyFromArray(arr, item) {
-    return [].concat(_toConsumableArray(arr), [_defineProperty({}, key, item[key])]);
+    return [].concat(_toConsumableArray(arr), [(0, _nestedObject.objectFromKeys)(item, keys)]);
   };
 
   return this.reduce(keyFromArray, []);
