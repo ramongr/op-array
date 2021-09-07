@@ -44,3 +44,20 @@
   ```
 
 </details>
+
+<details>
+  <summary>extract</summary>
+
+  ```javascript
+    const collection = [
+      {id: 1, user: { name: 'Foo' }},
+      {id: 2, user: { name: 'Bar' }},
+      {id: 3, user: { name: 'Bar' }}
+    ]
+
+    collection.extract(['id']) // Returns [{id: 1}, {id: 2}, {id: 3}]
+
+    collection.where(['id', 'test']) // Returns [{id: 1, test: undefined}, {id: 2, test: undefined}, {id: 3, test: undefined}]
+  ```
+
+</details>
