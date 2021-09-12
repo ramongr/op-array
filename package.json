@@ -16,6 +16,10 @@
     "build": "babel operations -d dist",
     "test": "jest --coverage"
   },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
+  },
   "author": "Ramon Rodrigues",
   "license": "ISC",
   "devDependencies": {
