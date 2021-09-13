@@ -1,6 +1,7 @@
 # OP Array
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/123da94caf5cc7178bec/maintainability)](https://codeclimate.com/github/ramongr/op-array/maintainability)
+[![codecov](https://codecov.io/gh/ramongr/op-array/branch/main/graph/badge.svg?token=nWzOn3AxHs)](https://codecov.io/gh/ramongr/op-array)
 
 Using the Array's prototype chain to add extra methods.
 
