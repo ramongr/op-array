@@ -12,6 +12,8 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-extend-native": ["off"]
+        "no-extend-native": [
+            "off"
+        ]
     }
 }
