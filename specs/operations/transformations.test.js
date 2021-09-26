@@ -39,3 +39,21 @@ describe('.compact', () => {
     expect(collection.compact()).toEqual([1, 3]);
   });
 });
+
+describe('.zip', () => {
+  const collection = [1, 2, 3];
+
+  test('zip argument is too small', () => {
+    expect(collection.zip(['a', 'b'])).toEqual([1, 'a', 2, 'b', 3, undefined]);
+  });
+
+  test('combines one argument', () => {
+    expect(collection.zip(['a', 'b', 'c'])).toEqual([1, 'a', 2, 'b', 3, 'c']);
+  });
+
+  test('combines multiple argument', () => {
+    expect(collection.zip(['a', 'b', 'c'], [4, 5, 6])).toEqual(
+        [1, 'a', 4, 2, 'b', 5, 3, 'c', 6],
+    );
+  });
+});
