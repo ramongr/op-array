@@ -1,4 +1,4 @@
-import {hasValue} from '../shared/empty-values';
+import {falseyValues} from "../shared/empty-values";
 
 if (!Array.prototype.unique) {
   Array.prototype.unique = function() {
@@ -53,6 +53,6 @@ if (!Array.prototype.occurrences) {
 
 if (!Array.prototype.compact) {
   Array.prototype.compact = function() {
-    return this.filter(hasValue);
+    return this.filter(falseyValues);
   };
 }
