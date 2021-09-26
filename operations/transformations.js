@@ -65,3 +65,12 @@ if (!Array.prototype.zip) {
     }, []);
   };
 }
+
+if (!Array.prototype.zip) {
+  Array.prototype.zip = function(...args) {
+    return this.reduce((combinedArr, item, index) => {
+      const items = args.map((item) => (item[index]));
+      return [...combinedArr, item, ...items]
+    }, []);
+  };
+}
