@@ -59,3 +59,13 @@
   ```
 
 </details>
+
+<details>
+  <summary>zip</summary>
+
+  ```javascript
+    const collection = [1, 2, 3]
+    collection.zip([4,5,6]) // Returns [ 1, 2, 3, 4, 5, 6 ]
+  ```
+
+</details>
