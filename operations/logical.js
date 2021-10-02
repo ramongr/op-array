@@ -1,3 +1,5 @@
+import './positional';
+
 if (!Array.prototype.intersection) {
   Array.prototype.intersection = function(arr) {
     return this.filter((item) => arr.indexOf(item) !== -1);
@@ -28,5 +30,11 @@ if (!Array.prototype.union) {
     const unionizableArray = arr.except(this);
 
     return [...this, ...unionizableArray];
+  };
+}
+
+if (!Array.prototype.assoc) {
+  Array.prototype.assoc = function(value) {
+    this.find((item) => Array.isArray(item) && item.first === value);
   };
 }
