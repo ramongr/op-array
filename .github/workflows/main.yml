@@ -34,8 +34,10 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: stefanoeb/jest-action@f9bb23f509cde20ee9b494f0496d1d3323861cc4
         uses: stefanoeb/jest-action@1.0.4
-      - name: Run ESLint
-        run: eslint operations shared
+      - name: ESLint checker
+        # You may pin to the exact commit or the version.
+        # uses: ninosaurus/eslint-check@30ce7263e3f4b0bebc3cc06897bdf4ab8524a424
+        uses: ninosaurus/eslint-check@v5.3.1
       - name: Codecov
         # You may pin to the exact commit or the version.
         # uses: codecov/codecov-action@5a8bb4701eca7ba3673f21664b887f652c58d0a3
