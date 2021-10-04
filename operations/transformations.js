@@ -1,4 +1,4 @@
-import {falseyValues} from "../shared/empty-values";
+import {falseyValues} from '../shared/empty-values';
 
 if (!Array.prototype.unique) {
   Array.prototype.unique = function() {
@@ -28,11 +28,10 @@ if (!Array.prototype.intervals) {
 
 if (!Array.prototype.inGroups) {
   Array.prototype.inGroups = function(amount) {
-    return this
-        .intervals(amount)
-        .map(([firstIndex, lastIndex]) => {
-          return this.slice(firstIndex, lastIndex);
-        });
+    const groupedSlice = ([firstIndex, lastIndex]) =>
+      this.slice(firstIndex, lastIndex);
+
+    return this.intervals(amount).map(groupedSlice);
   };
 }
 
@@ -40,12 +39,9 @@ if (!Array.prototype.occurrences) {
   Array.prototype.occurrences = function() {
     const occurrences = new Map();
     this.forEach((item) => {
-      const itemValue = occurrences.get(item);
-      if (itemValue === undefined) {
-        occurrences.set(item, 1);
-      } else {
-        occurrences.set(item, itemValue + 1);
-      }
+      const itemValue = occurrences.get(item) || 0;
+
+      occurrences.set(item, itemValue + 1);
     });
     return Array.from(occurrences);
   };
@@ -61,7 +57,7 @@ if (!Array.prototype.zip) {
   Array.prototype.zip = function(...args) {
     return this.reduce((combinedArr, item, index) => {
       const items = args.map((item) => (item[index]));
-      return [...combinedArr, item, ...items]
+      return [...combinedArr, item, ...items];
     }, []);
   };
 }
