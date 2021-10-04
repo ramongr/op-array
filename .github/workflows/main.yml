@@ -31,7 +31,7 @@ jobs:
           # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
           node-version: ">=12"
       - name: Install Dependencies
-        run: npm install
+        run: yarn install --ignore-scripts --prefer-offline --frozen-lockfile
   check:
     runs-on: ubuntu-latest
     needs: build
