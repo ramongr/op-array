@@ -25,11 +25,13 @@ describe('.inGroups', () => {
 });
 
 describe('.occurrences', () => {
-  const collection = [1, 2, 2, 3];
-
   test('creates a matrix with the entries and their occurrence', () => {
-    expect(collection.occurrences()).toEqual([[1, 1], [2, 2], [3, 1]]);
+    expect([1, 2, 2, 3].occurrences()).toEqual([[1, 1], [2, 2], [3, 1]]);
   });
+
+  test('when the array is empty', () => {
+    expect([].occurrences()).toEqual([]);
+  })
 });
 
 describe('.compact', () => {
@@ -37,5 +39,23 @@ describe('.compact', () => {
 
   test('removes falsy values', () => {
     expect(collection.compact()).toEqual([1, 3]);
+  });
+});
+
+describe('.zip', () => {
+  const collection = [1, 2, 3];
+
+  test('zip argument is too small', () => {
+    expect(collection.zip(['a', 'b'])).toEqual([1, 'a', 2, 'b', 3, undefined]);
+  });
+
+  test('combines one argument', () => {
+    expect(collection.zip(['a', 'b', 'c'])).toEqual([1, 'a', 2, 'b', 3, 'c']);
+  });
+
+  test('combines multiple argument', () => {
+    expect(collection.zip(['a', 'b', 'c'], [4, 5, 6])).toEqual(
+        [1, 'a', 4, 2, 'b', 5, 3, 'c', 6],
+    );
   });
 });
