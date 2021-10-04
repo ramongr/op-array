@@ -25,11 +25,13 @@ describe('.inGroups', () => {
 });
 
 describe('.occurrences', () => {
-  const collection = [1, 2, 2, 3];
-
   test('creates a matrix with the entries and their occurrence', () => {
-    expect(collection.occurrences()).toEqual([[1, 1], [2, 2], [3, 1]]);
+    expect([1, 2, 2, 3].occurrences()).toEqual([[1, 1], [2, 2], [3, 1]]);
   });
+
+  test('when the array is empty', () => {
+    expect([].occurrences()).toEqual([]);
+  })
 });
 
 describe('.compact', () => {

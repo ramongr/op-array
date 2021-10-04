@@ -20,19 +20,19 @@ if (!Array.prototype.max) {
 if (!Array.prototype.sum) {
   Array.prototype.sum = function() {
     return this.reduce(addition, 0);
-  }
+  };
 }
 
 if (!Array.prototype.subtraction) {
   Array.prototype.subtraction = function() {
     return this.reduce(subtraction);
-  }
+  };
 }
 
 if (!Array.prototype.product) {
   Array.prototype.product = function() {
     return this.reduce(multiplication);
-  }
+  };
 }
 
 if (!Array.prototype.average) {
