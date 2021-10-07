@@ -1,4 +1,5 @@
 import {nestedObjectValue, objectFromKeys} from '../shared/nested-object';
+import {collectionSort} from '../shared/sorting';
 
 /**
  * Finds within a collection for a key with a given value
@@ -40,3 +41,14 @@ Array.prototype.extract = function(keys) {
   return this.reduce(keyFromArray, []);
 };
 
+/**
+ * Sorts a collection by a given key and order
+ * @param {string} key
+ * @param {asc|desc} order
+ * @return {Array}
+ */
+Array.prototype.sortBy = function(key, order) {
+  return this.sort((first, second) => {
+    return collectionSort(first, second, key, order);
+  });
+};
