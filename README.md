@@ -42,7 +42,7 @@ Subpaths available: `op-array/collections`, `op-array/logical`,
 | Category | Functions |
 |---|---|
 | **Collections** | `findBy`, `findById`, `where`, `extract` |
-| **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll`, `equals` |
+| **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll`, `existsAny`, `equals` |
 | **Numerical** | `min`, `max`, `sum`, `subtract`, `product`, `average`, `hasEvenLength`, `median`, `mode` |
 | **Positional** | `first`, `second`, `third`, `last` |
 | **Transformations** | `unique`, `flat`, `inGroups`, `inGroupsOf`, `occurrences`, `compact`, `compactNullish` |
@@ -82,6 +82,30 @@ npm run lint
 npm run typecheck
 npm run build     # tsup -> dist/
 ```
+
+## Releasing
+
+Releases are triggered by **closing a GitHub milestone** named
+`vMAJOR.MINOR` (e.g. `v2.1`). The release workflow then:
+
+1. Verifies every issue and PR in the milestone is closed/merged and
+   the full quality gate passes.
+2. Opens a `chore(release): MAJOR.MINOR.0` PR that bumps `package.json`
+   and date-stamps the matching `CHANGELOG.md` heading. Auto-merge is
+   enabled.
+3. On PR merge, tags `vMAJOR.MINOR.0` and publishes to npm with
+   provenance, then creates a GitHub Release with notes auto-generated
+   from the milestone's merged PRs.
+
+Authentication to npm uses **npm Trusted Publishing** (OIDC) — there
+is no long-lived `NPM_TOKEN` in the repo. The publish job runs inside
+the `npm-publish` GitHub Environment, which is restricted to the `main`
+branch and (optionally) gated on a manual approval. The matching
+Trusted Publisher is registered on npmjs.com against the
+`publish-on-tag.yml` workflow with environment `npm-publish`.
+
+See `.github/workflows/release.yml`, `tag-on-release-merge.yml`, and
+`publish-on-tag.yml`.
 
 ## License
 

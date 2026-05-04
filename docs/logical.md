@@ -7,6 +7,7 @@ import {
   union,
   exists,
   existsAll,
+  existsAny,
   equals,
 } from 'op-array/logical';
 ```
@@ -51,6 +52,18 @@ empty.
 existsAll([1, 2, 3], [1, 3]); // true
 existsAll([1, 2, 3], [1, 9]); // false
 existsAll([], [1]);           // false
+```
+
+## `existsAny(source, items)`
+
+True when **any** element of `items` is in `source`. False if either
+side is empty.
+
+```ts
+existsAny([1, 2, 3], [4, 2]); // true
+existsAny([1, 2, 3], [4, 5]); // false
+existsAny([], [1]);           // false
+existsAny([1], []);           // false
 ```
 
 ## `equals(left, right)`
