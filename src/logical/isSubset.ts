@@ -1,6 +1,7 @@
 /**
- * Returns `true` when every distinct element of `left` is present in
- * `right`. Element comparison uses `Set` (SameValueZero) semantics.
+ * Returns `true` when every element of `left` is present in `right`.
+ * Element comparison uses `Set` (SameValueZero) semantics, so
+ * duplicates in `left` collapse to a single membership check.
  *
  * Empty `left` is vacuously a subset of any array (including `[]`).
  *
