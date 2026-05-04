@@ -1,22 +1,17 @@
-"use strict";
+// src/positional/positional.ts
+function first(values) {
+  return values[0];
+}
+function second(values) {
+  return values[1];
+}
+function third(values) {
+  return values[2];
+}
+function last(values) {
+  return values[values.length - 1];
+}
 
-Object.defineProperty(Array.prototype, 'first', {
-  get: function get() {
-    return this[0];
-  }
-});
-Object.defineProperty(Array.prototype, 'second', {
-  get: function get() {
-    return this[1];
-  }
-});
-Object.defineProperty(Array.prototype, 'third', {
-  get: function get() {
-    return this[2];
-  }
-});
-Object.defineProperty(Array.prototype, 'last', {
-  get: function get() {
-    return this[this.length - 1];
-  }
-});
+export { first, last, second, third };
+//# sourceMappingURL=positional.js.map
+//# sourceMappingURL=positional.js.map
