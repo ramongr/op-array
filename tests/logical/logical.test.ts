@@ -8,6 +8,7 @@ import {
   intersection,
   isSubset,
   isSuperset,
+  isDisjoint,
   symmetricDifference,
   union,
 } from '../../src/logical/index.js';
@@ -229,5 +230,45 @@ describe('isSuperset', () => {
     isSuperset(left, right);
     expect(left).toEqual([1, 2, 3]);
     expect(right).toEqual([1, 2]);
+  });
+});
+
+describe('isDisjoint', () => {
+  test('returns true when no elements overlap', () => {
+    expect(isDisjoint([1, 2], [3, 4])).toBe(true);
+  });
+
+  test('returns false when at least one element overlaps', () => {
+    expect(isDisjoint([1, 2], [2, 3])).toBe(false);
+  });
+
+  test('returns true when left is empty', () => {
+    expect(isDisjoint<number>([], [1, 2])).toBe(true);
+  });
+
+  test('returns true when right is empty', () => {
+    expect(isDisjoint<number>([1, 2], [])).toBe(true);
+  });
+
+  test('returns true for two empty arrays', () => {
+    expect(isDisjoint<number>([], [])).toBe(true);
+  });
+
+  test('returns false when arrays are set-equal', () => {
+    expect(isDisjoint([1, 2, 3], [3, 2, 1])).toBe(false);
+  });
+
+  test('handles asymmetric sizes (smaller iterated against larger lookup)', () => {
+    expect(isDisjoint([9], [1, 2, 3, 4, 5, 6, 7, 8])).toBe(true);
+    expect(isDisjoint([1, 2, 3, 4, 5, 6, 7, 8], [9])).toBe(true);
+    expect(isDisjoint([5], [1, 2, 3, 4, 5, 6, 7, 8])).toBe(false);
+  });
+
+  test('does not mutate inputs', () => {
+    const left = [1, 2];
+    const right = [3, 4];
+    isDisjoint(left, right);
+    expect(left).toEqual([1, 2]);
+    expect(right).toEqual([3, 4]);
   });
 });

@@ -12,6 +12,7 @@ import {
   symmetricDifference,
   isSubset,
   isSuperset,
+  isDisjoint,
 } from 'op-array/logical';
 ```
 
@@ -121,4 +122,18 @@ isSuperset([1, 2, 3], [1, 4]);    // false
 isSuperset([1, 2, 3], [3, 2, 1]); // true (set-equal)
 isSuperset([1, 2], []);           // true
 isSuperset([], [1]);              // false
+```
+
+## `isDisjoint(left, right)`
+
+`true` when `left` and `right` share no elements. Either side empty is
+vacuously disjoint. Element comparison uses `Set` (SameValueZero)
+semantics. O(n + m).
+
+```ts
+isDisjoint([1, 2], [3, 4]); // true
+isDisjoint([1, 2], [2, 3]); // false
+isDisjoint([], [1, 2]);     // true
+isDisjoint([1, 2], []);     // true
+isDisjoint([], []);         // true
 ```
