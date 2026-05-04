@@ -6,6 +6,7 @@ import {
   findById,
   where,
   extract,
+  partition,
 } from 'op-array/collections';
 ```
 
@@ -57,4 +58,21 @@ extract(
   ['id', 'name'],
 );
 // [{ id: 1, name: 'Ana' }]
+```
+
+## `partition(collection, predicate)`
+
+Splits the collection into two arrays in a single pass. Items for which
+`predicate` returns `true` go into `pass`, the rest into `fail`. The
+predicate must return a boolean — truthy/falsy values are not coerced.
+Empty input returns `{ pass: [], fail: [] }`.
+
+```ts
+partition([1, 2, 3, 4], (n) => n % 2 === 0);
+// { pass: [2, 4], fail: [1, 3] }
+
+const { pass: adults, fail: minors } = partition(
+  users,
+  (u) => u.age >= 18,
+);
 ```
