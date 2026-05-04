@@ -7,6 +7,7 @@ import {
   inGroupsOf,
   occurrences,
   unique,
+  uniqueBy,
 } from '../../src/transformations/index.js';
 
 describe('unique', () => {
@@ -16,6 +17,38 @@ describe('unique', () => {
 
   test('returns empty for empty input', () => {
     expect(unique<number>([])).toEqual([]);
+  });
+});
+
+describe('uniqueBy', () => {
+  test('dedupes by a top-level key, first occurrence wins', () => {
+    const users = [
+      { id: 1, name: 'Ana' },
+      { id: 2, name: 'Bo' },
+      { id: 1, name: 'Ana 2' },
+    ];
+    expect(uniqueBy(users, 'id')).toEqual([users[0], users[1]]);
+  });
+
+  test('dedupes by a nested dot-delimited path', () => {
+    const orders = [
+      { id: 1, customer: { email: 'a@x' } },
+      { id: 2, customer: { email: 'b@x' } },
+      { id: 3, customer: { email: 'a@x' } },
+    ];
+    expect(uniqueBy(orders, 'customer.email')).toEqual([
+      orders[0],
+      orders[1],
+    ]);
+  });
+
+  test('collapses items missing the path into a single bucket', () => {
+    const items = [{ id: 1 }, {}, { id: 2 }, {}];
+    expect(uniqueBy(items, 'id')).toEqual([items[0], items[1], items[2]]);
+  });
+
+  test('returns [] for empty input', () => {
+    expect(uniqueBy<{ id: number }>([], 'id')).toEqual([]);
   });
 });
 

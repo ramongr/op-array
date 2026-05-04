@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   per-bucket arrays.
 - `countBy(collection, key)`: per-bucket counts indexed by a dot-path
   value.
+- `uniqueBy(values, key)`: dedupe a collection by a dot-path value,
+  first occurrence wins.
 
 ### Tooling
 
