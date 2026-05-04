@@ -1,43 +1,18 @@
-<details>
-  <summary>first</summary>
+# Positional
 
-  ```javascript
-    const collection = [20, 3, 1]
+```ts
+import { first, second, third, last } from 'op-array/positional';
+```
 
-    collection.first // Returns 20
-  ```
+Each returns `T | undefined` so empty-array handling is surfaced at the
+type level.
 
-</details>
+```ts
+first([10, 20, 30]);  // 10
+second([10, 20, 30]); // 20
+third([10, 20, 30]);  // 30
+last([10, 20, 30]);   // 30
 
-<details>
-  <summary>second</summary>
-
-  ```javascript
-    const collection = [20, 3, 1]
-
-    collection.second // Returns 3
-  ```
-
-</details>
-
-<details>
-  <summary>third</summary>
-
-  ```javascript
-    const collection = [20, 3, 1]
-
-    collection.third // Returns 1
-  ```
-
-</details>
-
-<details>
-  <summary>last</summary>
-
-  ```javascript
-    const collection = [20, 3, 1]
-
-    collection.last // Returns 1
-  ```
-
-</details>
+first([]);            // undefined
+last([10]);           // 10
+```

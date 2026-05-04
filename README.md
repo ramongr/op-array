@@ -1,54 +1,88 @@
-# OP Array
+# op-array
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/123da94caf5cc7178bec/maintainability)](https://codeclimate.com/github/ramongr/op-array/maintainability)
 [![codecov](https://codecov.io/gh/ramongr/op-array/branch/main/graph/badge.svg?token=nWzOn3AxHs)](https://codecov.io/gh/ramongr/op-array)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Using the Array's prototype chain to add extra methods.
+A small, tree-shakable, **functional** utility library that fills the gaps
+in JavaScript's built-in `Array` API. Written in TypeScript, ships ESM + CJS
+builds with first-class type definitions.
+
+> **v2 is a complete rewrite.** v1 mutated `Array.prototype`. v2 ships only
+> standalone functions. See [CHANGELOG.md](CHANGELOG.md) for the migration
+> guide.
 
 ## Installation
 
-Install the npm package
-
-```shell
-yarn add op-array
-```
-or
-
-```shell
+```sh
 npm install op-array
 ```
 
-## How to use
+## Usage
 
-```javascript
-// findBy, findById, where
-import 'op-array/dist/collections';
-// For operations like: intersection, existance...
-import 'op-array/dist/logical';
-// For operations like: min, max, sum...
-import 'op-array/dist/numerical';
-// Adds first, second and last as array properties
-import 'op-array/dist/positional';
-// For operations like: unique, flat, inGroups...
-import 'op-array/dist/transformations';
+```ts
+import { sum, unique, findBy } from 'op-array';
+
+sum([1, 2, 3]);                     // 6
+unique([1, 2, 2, 3]);               // [1, 2, 3]
+findBy(users, 'profile.email', x);  // first matching user
 ```
 
-## Functions - Collections
+Or import a single category as a subpath:
 
-[Click here to see examples](docs/collections.md)
+```ts
+import { min, max, average, median } from 'op-array/numerical';
+```
 
-## Functions - Logical
+Subpaths available: `op-array/collections`, `op-array/logical`,
+`op-array/numerical`, `op-array/positional`, `op-array/transformations`.
 
-[Click here to see examples](docs/logical.md)
+## API overview
 
-## Functions - Numerical
+| Category | Functions |
+|---|---|
+| **Collections** | `findBy`, `findById`, `where`, `extract` |
+| **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll` |
+| **Numerical** | `min`, `max`, `sum`, `subtract`, `product`, `average`, `hasEvenLength`, `median`, `mode` |
+| **Positional** | `first`, `second`, `third`, `last` |
+| **Transformations** | `unique`, `flat`, `inGroups`, `inGroupsOf`, `occurrences`, `compact`, `compactNullish` |
 
-[Click here to see examples](docs/numerical.md)
+For details and examples see the per-category docs:
 
-## Functions - Positional
+- [Collections](docs/collections.md)
+- [Logical](docs/logical.md)
+- [Numerical](docs/numerical.md)
+- [Positional](docs/positional.md)
+- [Transformations](docs/transformations.md)
 
-[Click here to see examples](docs/positional.md)
+## Migrating from v1
 
-## Functions - Transformations
+v1 patched `Array.prototype`. v2 exports plain functions taking the array
+as the first argument.
 
-[Click here to see examples](docs/transformations.md)
+| v1 | v2 |
+|---|---|
+| `import 'op-array/dist/numerical'` then `[1,2].sum()` | `import { sum } from 'op-array'` then `sum([1, 2])` |
+| `arr.findBy('id', 1)` | `findBy(arr, 'id', 1)` |
+| `arr.first` | `first(arr)` |
+| `arr.subtraction()` | `subtract(arr)` |
+| `arr.isEvenLength()` | `hasEvenLength(arr)` |
+| `arr.exists([1, 2])` | `existsAll(arr, [1, 2])` |
+
+## Development
+
+This project uses [mise](https://mise.jdx.dev) for tool versioning and npm
+for packages.
+
+```sh
+mise install      # installs Node 22
+npm install
+npm test          # vitest with coverage
+npm run lint
+npm run typecheck
+npm run build     # tsup -> dist/
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE).

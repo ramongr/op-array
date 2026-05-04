@@ -1,0 +1,9 @@
+export { min } from './min.js';
+export { max } from './max.js';
+export { sum } from './sum.js';
+export { subtract } from './subtract.js';
+export { product } from './product.js';
+export { average } from './average.js';
+export { hasEvenLength } from './hasEvenLength.js';
+export { median } from './median.js';
+export { mode } from './mode.js';

@@ -1,9 +1,0 @@
-.eslintrc.json
-.nvmrc
-babel.config.json
-package-lock.json
-.vscode/
-node_modules/
-operations/
-shared/
-specs/

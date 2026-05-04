@@ -1,61 +1,70 @@
-<details>
-  <summary>unique</summary>
+# Transformations
 
-  ```javascript
-    const collection = [1, 2, 2, 3, 4]
+```ts
+import {
+  unique,
+  flat,
+  inGroups,
+  inGroupsOf,
+  occurrences,
+  compact,
+  compactNullish,
+} from 'op-array/transformations';
+```
 
-    collection.unique() // Returns [1, 2, 3, 4]
-  ```
+## `unique(values)`
 
-</details>
+```ts
+unique([1, 2, 2, 3, 1]); // [1, 2, 3]
+```
 
-<details>
-  <summary>flat</summary>
+## `flat(values, depth = 1)`
 
-  ```javascript
-    const collection = [[1, 2], [2, 3, 4]]
+Mirrors native `Array.prototype.flat` while accepting `readonly` inputs.
 
-    collection.flat() // Returns [1, 2, 2, 3, 4]
-  ```
+```ts
+flat([[1, 2], [3, [4]]]);   // [1, 2, 3, [4]]
+flat([[1, [2, [3]]]], 2);   // [1, 2, [3]]
+```
 
-</details>
+## `inGroups(values, groupCount)`
 
-<details>
-  <summary>inGroups</summary>
+Splits into exactly `groupCount` contiguous groups. Throws `RangeError`
+on a non-positive `groupCount`.
 
-  ```javascript
-    const collection = const collection = [1, 2, 2, 3, 4, 5, 6]
-    collection.inGroups() // Returns [ [ 1, 2, 2 ], [ 3, 4, 5 ], [ 6 ] ]
-  ```
+```ts
+inGroups([1, 2, 3, 4, 5], 2); // [[1, 2, 3], [4, 5]]
+inGroups([1, 2, 3], 5);       // [[1], [2], [3], [], []]
+```
 
-  ```javascript
-    const collection = [1, 2, 2, 3, 4, 5]
-    collection.inGroups() // Returns [ [ 1, 2 ], [ 2, 3 ], [ 4, 5 ] ]
-  ```
+## `inGroupsOf(values, size)`
 
-</details>
+Splits into groups of `size` consecutive elements. Throws `RangeError`
+on a non-positive `size`.
 
-<details>
-  <summary>occurences</summary>
+```ts
+inGroupsOf([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
+```
 
-  ```javascript
-    const collection = [1, 2, 2, 3, 4, 5, 6]
-    collection.occurences() // Returns [ [ 1, 2, 2 ], [ 3, 4, 5 ], [ 6 ] ]
-  ```
+## `occurrences(values)`
 
-  ```javascript
-    const collection = [1, 2, 2, 3, 3, 3, 4, 4, 5]
-    collection.occurences() // Returns [ [ 1, 1 ], [ 2, 2 ], [ 3, 3 ], [ 4, 2 ], [ 5, 1 ] ]
-  ```
+```ts
+occurrences([1, 2, 2, 3]); // [[1, 1], [2, 2], [3, 1]]
+```
 
-</details>
+## `compact(values)`
 
-<details>
-  <summary>compact</summary>
+Removes all falsy values: `false`, `0`, `0n`, `''`, `null`, `undefined`,
+`NaN`. Mirrors `lodash.compact`.
 
-  ```javascript
-    const collection = [1, 2, null, 3, undefined, 4, '', 5]
-    collection.compact() // Returns [ 1, 2, 3, 4, 5 ]
-  ```
+```ts
+compact([0, 1, false, 2, '', 3, null, NaN]); // [1, 2, 3]
+```
 
-</details>
+## `compactNullish(values)`
+
+Removes only `null` / `undefined`.
+
+```ts
+compactNullish([0, 1, null, '', undefined]); // [0, 1, '']
+```

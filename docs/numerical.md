@@ -1,100 +1,82 @@
-<details>
-  <summary>min</summary>
+# Numerical
 
-  ```javascript
-    const collection = [20, 3, 1]
+```ts
+import {
+  min,
+  max,
+  sum,
+  subtract,
+  product,
+  average,
+  hasEvenLength,
+  median,
+  mode,
+} from 'op-array/numerical';
+```
 
-    collection.min() // Returns 1
-  ```
+## `min(values)` / `max(values)`
 
-</details>
+```ts
+min([3, 1, 2]); // 1
+max([3, 1, 2]); // 3
+```
 
-<details>
-  <summary>max</summary>
+## `sum(values)`
 
-  ```javascript
-    const collection = [20, 3, 1]
+Returns `0` for empty arrays.
 
-    collection.min() // Returns 20
-  ```
+```ts
+sum([1, 2, 3]); // 6
+```
 
-</details>
+## `subtract(values)`
 
-<details>
-  <summary>sum</summary>
+Left-folds subtraction. **Throws `TypeError`** on empty input.
 
-  ```javascript
-    const collection = [20, 3, 1]
+```ts
+subtract([10, 3, 2]); // 5
+```
 
-    collection.sum() // Returns 24
-  ```
+## `product(values)`
 
-</details>
+**Throws `TypeError`** on empty input.
 
-<details>
-  <summary>subtraction</summary>
+```ts
+product([2, 3, 4]); // 24
+```
 
-  ```javascript
-    const collection = [20, 3, 1]
+## `average(values)`
 
-    collection.subtraction() // Returns 16
-  ```
+Returns `NaN` on empty input (consistent with `0 / 0`).
 
-</details>
+```ts
+average([2, 4, 6]); // 4
+```
 
-<details>
-  <summary>product</summary>
+## `hasEvenLength(values)`
 
-  ```javascript
-    const collection = [20, 3, 1]
+```ts
+hasEvenLength([1, 2]);    // true
+hasEvenLength([1, 2, 3]); // false
+```
 
-    collection.product() // Returns 60
-  ```
+## `median(values)`
 
-</details>
+Numeric sort, does not mutate the input. Even-length arrays return the
+mean of the two middle values. **Throws `TypeError`** on empty input.
 
-<details>
-  <summary>average</summary>
+```ts
+median([3, 1, 2]);    // 2
+median([1, 2, 3, 4]); // 2.5
+median([10, 2, 1]);   // 2  (numeric sort, not lexicographic)
+```
 
-  ```javascript
-    const collection = [20, 3, 1]
+## `mode(values)`
 
-    collection.average() // Returns 8
-  ```
+Returns every value tied for the highest occurrence count, in first-seen
+order. Returns `[]` for empty input.
 
-</details>
-
-<details>
-  <summary>isEvenLength</summary>
-
-  ```javascript
-    const collection = [20, 3, 1]
-
-    collection.isEvenLength() // Returns true
-  ```
-
-</details>
-
-<details>
-  <summary>median</summary>
-
-  ```javascript
-    const collection = [20, 3, 7, 7, 1]
-
-    collection.median() // Returns 3
-  ```
-
-</details>
-
-<details>
-  <summary>mode</summary>
-
-  #### Warning - This function needs the "transformations" dependency
-
-  ```javascript
-    const collection = [20, 3, 7, 7, 1]
-
-    collection.mode() // Returns [7]
-  ```
-
-</details>
+```ts
+mode([1, 2, 2, 3]);     // [2]
+mode([1, 1, 2, 2, 3]);  // [1, 2]
+```
