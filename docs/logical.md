@@ -1,64 +1,53 @@
-<details>
-  <summary>intersection</summary>
+# Logical
 
-  ```javascript
-    const foo = [1, 2, 3, 4]
-    const bar = [2, 3, 4]
+```ts
+import {
+  intersection,
+  except,
+  union,
+  exists,
+  existsAll,
+} from 'op-array/logical';
+```
 
-    foo.intersection(bar) // Returns [2, 3, 4]
-  ```
+## `intersection(left, right)`
 
-</details>
+Elements present in both arrays. Order follows `left`. O(n + m).
 
-<details>
-  <summary>exists</summary>
+```ts
+intersection([1, 2, 3], [2, 3, 4]); // [2, 3]
+```
 
-  ```javascript
-    const foo = [1, 2, 3, 4]
-    const bar = [2, 3, 4]
+## `except(source, excluded)`
 
-    foo.exists(2) // Returns true
-    foo.exists(5) // Returns false
-    foo.exists(bar) // Returns true
-  ```
+Elements of `source` not in `excluded`. O(n + m).
 
-</details>
+```ts
+except([1, 2, 3, 4], [2, 4]); // [1, 3]
+```
 
-<details>
-  <summary>except</summary>
+## `union(left, right)`
 
-  ```javascript
-    const foo = [1, 2, 3, 4]
+Combined elements without duplicates, in first-seen order.
 
-    foo.except(2) // Returns [1, 3, 4]
-    foo.except([1, 2, 3]) // Returns [4]
-    foo.except(5) // Returns [1, 2, 3, 4]
-  ```
+```ts
+union([1, 2, 3], [3, 4, 5]); // [1, 2, 3, 4, 5]
+```
 
-</details>
+## `exists(source, item)`
 
-<details>
-  <summary>union</summary>
+```ts
+exists([1, 2, 3], 2); // true
+exists([], 2);        // false
+```
 
-  ```javascript
-    const foo = [1, 2, 3, 4]
-    const bar = [2, 3, 4, 5]
+## `existsAll(source, items)`
 
-    foo.union(bar) // Returns [1, 2, 3, 4, 5]
-  ```
+True when every element of `items` is in `source`. False if `source` is
+empty.
 
-  ```javascript
-    const foo = [1, 2, 3, 4]
-    const bar = [5]
-
-    foo.union(bar) // Returns [1, 2, 3, 4, 5]
-  ```
-
-  ```javascript
-    const foo = [1, 2, 3, 4]
-    const bar = [1]
-
-    foo.union(bar) // Returns [1, 2, 3, 4]
-  ```
-
-</details>
+```ts
+existsAll([1, 2, 3], [1, 3]); // true
+existsAll([1, 2, 3], [1, 9]); // false
+existsAll([], [1]);           // false
+```
