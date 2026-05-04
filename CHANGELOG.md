@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0]
 
+<<<<<<< feat/23-partition
+### Added
+
+- `partition(collection, predicate)`: single-pass split into
+  `{ pass, fail }` buckets.
+=======
 ### Tooling
 
 - Added internal `pathResolver(path)` helper in `src/shared/` to centralise
@@ -20,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Authenticated `npm publish` via npm Trusted Publishing (OIDC) inside
   the `npm-publish` GitHub Environment — no long-lived `NPM_TOKEN`
   stored in the repo.
+>>>>>>> main
 
 ## [2.0.0] - 2026-05-04
 
