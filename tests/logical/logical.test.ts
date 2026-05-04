@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
+  equals,
   except,
   exists,
   existsAll,
@@ -75,5 +76,28 @@ describe('existsAll', () => {
 
   test('returns true vacuously for empty items on non-empty source', () => {
     expect(existsAll([1], [])).toBe(true);
+  });
+});
+
+describe('equals', () => {
+  test('returns true for arrays with the same elements in any order', () => {
+    expect(equals([1, 2, 3], [3, 2, 1])).toBe(true);
+  });
+
+  test('returns true ignoring duplicates (set semantics)', () => {
+    expect(equals([1, 2], [1, 2, 2])).toBe(true);
+  });
+
+  test('returns false when distinct elements differ', () => {
+    expect(equals([1, 2], [1, 3])).toBe(false);
+  });
+
+  test('returns true for two empty arrays', () => {
+    expect(equals<number>([], [])).toBe(true);
+  });
+
+  test('returns false when only one side is empty', () => {
+    expect(equals<number>([], [1])).toBe(false);
+    expect(equals<number>([1], [])).toBe(false);
   });
 });

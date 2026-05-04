@@ -7,6 +7,7 @@ import {
   union,
   exists,
   existsAll,
+  equals,
 } from 'op-array/logical';
 ```
 
@@ -50,4 +51,17 @@ empty.
 existsAll([1, 2, 3], [1, 3]); // true
 existsAll([1, 2, 3], [1, 9]); // false
 existsAll([], [1]);           // false
+```
+
+## `equals(left, right)`
+
+Set-equality. `true` when both arrays contain exactly the same distinct
+elements regardless of order or duplicates. **Not** a deep equality
+check. Element comparison uses `Set` (SameValueZero) semantics.
+
+```ts
+equals([1, 2, 3], [3, 2, 1]); // true
+equals([1, 2], [1, 2, 2]);    // true  (set semantics)
+equals([1, 2], [1, 3]);       // false
+equals([], []);               // true
 ```
