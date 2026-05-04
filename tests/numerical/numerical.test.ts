@@ -7,6 +7,7 @@ import {
   min,
   mode,
   product,
+  range,
   subtract,
   sum,
 } from '../../src/numerical/index.js';
@@ -108,5 +109,37 @@ describe('mode', () => {
 
   test('returns [] on empty input', () => {
     expect(mode<number>([])).toEqual([]);
+  });
+});
+
+describe('range', () => {
+  test('returns max minus min', () => {
+    expect(range([1, 5, 3, 9, 2])).toBe(8);
+  });
+
+  test('returns 0 for a single-element array', () => {
+    expect(range([42])).toBe(0);
+  });
+
+  test('handles negative numbers', () => {
+    expect(range([-5, -1, -3])).toBe(4);
+  });
+
+  test('handles mixed positive and negative numbers', () => {
+    expect(range([-3, 0, 7])).toBe(10);
+  });
+
+  test('returns 0 when all values are equal', () => {
+    expect(range([4, 4, 4])).toBe(0);
+  });
+
+  test('throws on empty array', () => {
+    expect(() => range([])).toThrow(TypeError);
+  });
+
+  test('does not mutate the input', () => {
+    const input = [3, 1, 2];
+    range(input);
+    expect(input).toEqual([3, 1, 2]);
   });
 });

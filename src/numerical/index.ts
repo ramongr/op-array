@@ -7,3 +7,4 @@ export { average } from './average.js';
 export { hasEvenLength } from './hasEvenLength.js';
 export { median } from './median.js';
 export { mode } from './mode.js';
+export { range } from './range.js';
