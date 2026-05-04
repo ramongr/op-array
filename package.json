@@ -1,33 +1,83 @@
 {
   "name": "op-array",
-  "version": "1.0.2",
-  "description": "Adding extra functions to the Javascript Array",
+  "version": "2.0.0-alpha.0",
+  "description": "Adding extra functions to the JavaScript Array",
   "homepage": "https://github.com/ramongr/op-array",
   "keywords": [
-    "prototype",
     "array",
-    "functions"
+    "functional",
+    "utilities",
+    "typescript"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ramongr/op-array.git"
   },
-  "scripts": {
-    "build": "babel operations -d dist",
-    "test": "jest --coverage"
-  },
-  "jest": {
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true
-  },
   "author": "Ramon Rodrigues",
-  "license": "ISC",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./collections": {
+      "types": "./dist/collections.d.ts",
+      "import": "./dist/collections.js",
+      "require": "./dist/collections.cjs"
+    },
+    "./logical": {
+      "types": "./dist/logical.d.ts",
+      "import": "./dist/logical.js",
+      "require": "./dist/logical.cjs"
+    },
+    "./numerical": {
+      "types": "./dist/numerical.d.ts",
+      "import": "./dist/numerical.js",
+      "require": "./dist/numerical.cjs"
+    },
+    "./positional": {
+      "types": "./dist/positional.d.ts",
+      "import": "./dist/positional.js",
+      "require": "./dist/positional.cjs"
+    },
+    "./transformations": {
+      "types": "./dist/transformations.d.ts",
+      "import": "./dist/transformations.js",
+      "require": "./dist/transformations.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "lint": "eslint src tests",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
-    "eslint": "7.7.0",
-    "eslint-config-google": "^0.14.0",
-    "jest": "^27.2.2"
+    "@types/node": "^22.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "@vitest/coverage-v8": "^2.1.2",
+    "eslint": "^9.12.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0",
+    "vitest": "^2.1.2"
   }
 }
