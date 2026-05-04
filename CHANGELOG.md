@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `existsAny(source, items)`: disjunctive sibling of `existsAll`.
+- `equals(left, right)`: order- and duplicate-insensitive set-equality
+  for arrays.
 - `partition(collection, predicate)`: single-pass split into
   `{ pass, fail }` buckets.
 
