@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   notes auto-generated from the milestone's PRs. See
   `.github/workflows/release.yml`, `tag-on-release-merge.yml`, and
   `publish-on-tag.yml`.
+- Authenticated `npm publish` via npm Trusted Publishing (OIDC) inside
+  the `npm-publish` GitHub Environment — no long-lived `NPM_TOKEN`
+  stored in the repo.
 
 ## [2.0.0] - 2026-05-04
 

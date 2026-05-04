@@ -97,6 +97,13 @@ Releases are triggered by **closing a GitHub milestone** named
    provenance, then creates a GitHub Release with notes auto-generated
    from the milestone's merged PRs.
 
+Authentication to npm uses **npm Trusted Publishing** (OIDC) — there
+is no long-lived `NPM_TOKEN` in the repo. The publish job runs inside
+the `npm-publish` GitHub Environment, which is restricted to the `main`
+branch and (optionally) gated on a manual approval. The matching
+Trusted Publisher is registered on npmjs.com against the
+`publish-on-tag.yml` workflow with environment `npm-publish`.
+
 See `.github/workflows/release.yml`, `tag-on-release-merge.yml`, and
 `publish-on-tag.yml`.
 
