@@ -17,7 +17,6 @@
  */
 export function isSuperset<T>(left: readonly T[], right: readonly T[]): boolean {
   if (right.length === 0) return true;
-  if (left.length === 0) return false;
   const leftSet = new Set(left);
   for (const item of right) {
     if (!leftSet.has(item)) return false;

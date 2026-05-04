@@ -111,9 +111,9 @@ isSubset([1], []);           // false
 ## `isSuperset(left, right)`
 
 `true` when every distinct element of `right` is in `left`, i.e. `left`
-is a (non-strict) superset of `right`. Empty `right` is vacuously a
-subset of any array, so any `left` is a superset of `[]`. Element
-comparison uses `Set` (SameValueZero) semantics. O(n + m).
+is a (non-strict) superset of `right`. Any `left` is vacuously a
+superset of `[]` (including `[]` itself). Element comparison uses
+`Set` (SameValueZero) semantics. O(n + m).
 
 ```ts
 isSuperset([1, 2, 3], [1, 2]);    // true
