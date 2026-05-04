@@ -6,6 +6,7 @@ import {
   findById,
   where,
   extract,
+  groupBy,
 } from 'op-array/collections';
 ```
 
@@ -57,4 +58,17 @@ extract(
   ['id', 'name'],
 );
 // [{ id: 1, name: 'Ana' }]
+```
+
+## `groupBy(collection, key)`
+
+Groups items by the value at `key` (dot-delimited for nested paths).
+Group order is the first-seen order of each bucket. Missing paths
+bucket under the string `'undefined'`. Empty input returns `{}`.
+
+```ts
+groupBy(orders, 'status');
+// { paid: [...], refunded: [...] }
+
+groupBy(users, 'address.country');
 ```

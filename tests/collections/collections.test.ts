@@ -3,6 +3,7 @@ import {
   extract,
   findBy,
   findById,
+  groupBy,
   where,
 } from '../../src/collections/index.js';
 
@@ -67,5 +68,52 @@ describe('extract', () => {
       { id: 1, name: 'Ana' },
       { id: 2, name: 'Bo' },
     ]);
+  });
+});
+
+describe('groupBy', () => {
+  test('groups by a top-level key', () => {
+    const orders = [
+      { id: 1, status: 'paid' },
+      { id: 2, status: 'refunded' },
+      { id: 3, status: 'paid' },
+    ];
+    expect(groupBy(orders, 'status')).toEqual({
+      paid: [orders[0], orders[2]],
+      refunded: [orders[1]],
+    });
+  });
+
+  test('groups by a nested dot-delimited path', () => {
+    const users = [
+      { name: 'Ana', address: { country: 'PT' } },
+      { name: 'Bo', address: { country: 'US' } },
+      { name: 'Cy', address: { country: 'PT' } },
+    ];
+    expect(groupBy(users, 'address.country')).toEqual({
+      PT: [users[0], users[2]],
+      US: [users[1]],
+    });
+  });
+
+  test('preserves first-seen order of group keys', () => {
+    const items = [
+      { k: 'b' },
+      { k: 'a' },
+      { k: 'b' },
+      { k: 'a' },
+    ];
+    expect(Object.keys(groupBy(items, 'k'))).toEqual(['b', 'a']);
+  });
+
+  test('buckets missing paths under the string "undefined"', () => {
+    expect(groupBy([{ id: 'a' }, {}], 'id')).toEqual({
+      a: [{ id: 'a' }],
+      undefined: [{}],
+    });
+  });
+
+  test('returns {} for empty input', () => {
+    expect(groupBy<{ id: string }>([], 'id')).toEqual({});
   });
 });
