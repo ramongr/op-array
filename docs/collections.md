@@ -1,63 +1,60 @@
-<details>
-  <summary>findBy</summary>
+# Collections
 
-  ```javascript
-    const collection = [
-      {id: 1, user: { name: 'Foo' }},
-      {id: 2, user: { name: 'Bar' }}
-    ]
+```ts
+import {
+  findBy,
+  findById,
+  where,
+  extract,
+} from 'op-array/collections';
+```
 
-    collection.findBy('id', 1) // Returns {id: 1, user: { name: 'Foo }}
+## `findBy(collection, key, value)`
 
-    collection.findBy('user.name', 'Bar') //Returns {id: 2, user: { name: 'Bar' }}
-  ```
+Finds the first item where the value at `key` (dot-delimited for nested
+paths) equals `value`.
 
-</details>
+```ts
+findBy([{ id: 1 }, { id: 2 }], 'id', 2);
+// { id: 2 }
 
-<details>
-  <summary>findById</summary>
+findBy(
+  [{ user: { name: 'Ana' } }, { user: { name: 'Bo' } }],
+  'user.name',
+  'Bo',
+);
+// { user: { name: 'Bo' } }
+```
 
-  ```javascript
-    const collection = [
-      {id: 1, user: { name: 'Foo' }},
-      {id: 2, user: { name: 'Bar' }}
-    ]
+## `findById(collection, value)`
 
-    collection.findById(1) // Returns {id: 1, user: { name: 'Foo }}
-  ```
+Shortcut for `findBy(collection, 'id', value)`.
 
-</details>
+```ts
+findById([{ id: 1 }, { id: 2 }], 2); // { id: 2 }
+```
 
-<details>
-  <summary>where</summary>
+## `where(collection, key, value)`
 
-  ```javascript
-    const collection = [
-      {id: 1, user: { name: 'Foo' }},
-      {id: 2, user: { name: 'Bar' }},
-      {id: 3, user: { name: 'Bar' }}
-    ]
+Returns every matching item.
 
-    collection.where('id', 1) // Returns [{id: 1, user: { name: 'Foo }}]
+```ts
+where(
+  [{ role: 'admin' }, { role: 'user' }, { role: 'admin' }],
+  'role',
+  'admin',
+);
+// [{ role: 'admin' }, { role: 'admin' }]
+```
 
-    collection.where('user.name', 'Bar') // Returns [{id: 2, user: { name: 'Bar' }}, {id: 3, user: { name: 'Bar' }}]
-  ```
+## `extract(collection, keys)`
 
-</details>
+Projects every item down to the listed keys.
 
-<details>
-  <summary>extract</summary>
-
-  ```javascript
-    const collection = [
-      {id: 1, user: { name: 'Foo' }},
-      {id: 2, user: { name: 'Bar' }},
-      {id: 3, user: { name: 'Bar' }}
-    ]
-
-    collection.extract(['id']) // Returns [{id: 1}, {id: 2}, {id: 3}]
-
-    collection.where(['id', 'test']) // Returns [{id: 1, test: undefined}, {id: 2, test: undefined}, {id: 3, test: undefined}]
-  ```
-
-</details>
+```ts
+extract(
+  [{ id: 1, name: 'Ana', email: 'a@x' }],
+  ['id', 'name'],
+);
+// [{ id: 1, name: 'Ana' }]
+```
