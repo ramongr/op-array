@@ -4,6 +4,34 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - Unreleased
+
+### Tooling
+
+- Replaced ESLint + `typescript-eslint` with [oxlint](https://oxc.rs).
+  Lint config moved from `eslint.config.js` to `.oxlintrc.json`. The
+  rule set was tightened: `correctness`, `suspicious`, and `perf`
+  categories run as errors with `denyWarnings: true`, plus a curated
+  list of TypeScript, import, unicorn, and core ESLint rules
+  (`no-non-null-assertion`, `consistent-type-exports`,
+  `no-param-reassign`, `prefer-template`, `import/no-default-export`,
+  `import/no-cycle`, `unicorn/prefer-at`, `unicorn/no-array-sort`,
+  etc.). Tests get a small relaxed override.
+- Bumped `tsconfig.json` `lib` to `ES2023` so the codebase can use
+  `Array.prototype.toSorted` (Node ≥20 already required at runtime).
+
+### Changed
+
+- `compact` uses the idiomatic `.filter(Boolean) as NonNullable<T>[]`.
+- `unique`, `union`, `occurrences` use spread instead of `Array.from`.
+- `median` uses `Array.prototype.toSorted` instead of
+  `[...values].sort(...)`.
+- `last` uses `Array.prototype.at(-1)`.
+- `flat` drops a redundant inferable type annotation.
+
+  These are pure refactors; behaviour is unchanged and existing tests
+  still pass at 100% coverage.
+
 ## [2.1.0] - 2026-05-04
 
 ### Added

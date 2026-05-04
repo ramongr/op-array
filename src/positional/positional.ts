@@ -15,5 +15,5 @@ export function third<T>(values: readonly T[]): T | undefined {
 
 /** Last element, or `undefined` if the array is empty. */
 export function last<T>(values: readonly T[]): T | undefined {
-  return values[values.length - 1];
+  return values.at(-1);
 }

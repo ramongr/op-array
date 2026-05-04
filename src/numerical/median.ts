@@ -9,7 +9,7 @@ export function median(values: readonly number[]): number {
   if (values.length === 0) {
     throw new TypeError('median: array must contain at least one number');
   }
-  const sorted = [...values].sort((a, b) => a - b);
+  const sorted = values.toSorted((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
 
   if (sorted.length % 2 === 0) {

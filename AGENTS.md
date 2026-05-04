@@ -30,10 +30,10 @@ Categories: `collections`, `logical`, `numerical`, `positional`,
 
 - **Named `export function`** declarations only. No default exports, no
   `export const fn = () => …`.
-- **Explicit return types** are required (eslint enforces).
+- **Explicit return types** are required (oxlint enforces).
 - Inputs are **`readonly T[]`** unless mutation is unavoidable.
 - Relative imports use the **`.js` suffix** (NodeNext/ESM resolution).
-- Use **`import type`** for type-only imports (eslint enforces
+- Use **`import type`** for type-only imports (oxlint enforces
   `consistent-type-imports`).
 - Avoid `any`. `unknown` is fine when truly unknown.
 - JSDoc on every exported function: one-line summary, then `@example`
@@ -161,4 +161,4 @@ Run these before pushing. CI runs the same matrix on Node 20 and 22.
 - Package manager: `npm`.
 - Build: `tsup` (dual ESM + CJS, types per entry).
 - Tests: `vitest` with v8 coverage.
-- Lint: `eslint` v9 flat config + `typescript-eslint`.
+- Lint: [`oxlint`](https://oxc.rs) (config in `.oxlintrc.json`).

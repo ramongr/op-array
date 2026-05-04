@@ -1,0 +1,81 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise", "node"],
+  "ignorePatterns": ["dist/**", "coverage/**", "node_modules/**"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error",
+    "pedantic": "off",
+    "style": "off",
+    "restriction": "off",
+    "nursery": "off"
+  },
+  "options": {
+    "denyWarnings": true,
+    "reportUnusedDisableDirectives": "error"
+  },
+  "rules": {
+    "no-console": "error",
+    "no-debugger": "error",
+    "no-alert": "error",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "eqeqeq": ["error", "always"],
+    "no-throw-literal": "error",
+    "no-useless-concat": "error",
+    "no-useless-rename": "error",
+    "no-param-reassign": "error",
+    "default-case-last": "error",
+    "guard-for-in": "error",
+    "no-await-in-loop": "error",
+    "no-inferrable-types": "error",
+    "prefer-template": "error",
+    "prefer-object-spread": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "object-shorthand": "error",
+    "yoda": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/explicit-function-return-type": "error",
+    "typescript/consistent-type-imports": ["error", { "prefer": "type-imports", "fixStyle": "separate-type-imports" }],
+    "typescript/consistent-type-exports": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "typescript/ban-ts-comment": "error",
+    "typescript/no-empty-object-type": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/prefer-as-const": "error",
+    "typescript/array-type": ["error", { "default": "array" }],
+    "typescript/no-import-type-side-effects": "error",
+    "import/no-default-export": "error",
+    "import/no-cycle": "error",
+    "import/no-self-import": "error",
+    "import/no-duplicates": "error",
+    "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-includes": "error",
+    "unicorn/prefer-set-has": "error",
+    "unicorn/prefer-spread": "error",
+    "unicorn/prefer-at": "error",
+    "unicorn/prefer-native-coercion-functions": "error",
+    "unicorn/no-useless-undefined": "error",
+    "unicorn/no-array-sort": "error",
+    "unicorn/throw-new-error": "error",
+    "unicorn/error-message": "error",
+    "unicorn/new-for-builtins": "error"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*.ts"],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "typescript/no-non-null-assertion": "off",
+        "typescript/explicit-function-return-type": "off",
+        "no-await-in-loop": "off",
+        "unicorn/no-useless-undefined": "off"
+      }
+    }
+  ]
+}
