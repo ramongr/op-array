@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0]
 
+### Added
+
+- `uniqueBy(values, key)`: dedupe a collection by a dot-path value,
+  first occurrence wins.
+
 ### Tooling
 
 - Added internal `pathResolver(path)` helper in `src/shared/` to centralise

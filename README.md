@@ -45,7 +45,7 @@ Subpaths available: `op-array/collections`, `op-array/logical`,
 | **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll` |
 | **Numerical** | `min`, `max`, `sum`, `subtract`, `product`, `average`, `hasEvenLength`, `median`, `mode` |
 | **Positional** | `first`, `second`, `third`, `last` |
-| **Transformations** | `unique`, `flat`, `inGroups`, `inGroupsOf`, `occurrences`, `compact`, `compactNullish` |
+| **Transformations** | `unique`, `uniqueBy`, `flat`, `inGroups`, `inGroupsOf`, `occurrences`, `compact`, `compactNullish` |
 
 For details and examples see the per-category docs:
 
