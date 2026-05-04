@@ -147,6 +147,13 @@ Run these before pushing. CI runs the same matrix on Node 20 and 22.
   `CHANGELOG.md` entry.
 - Don't merge your own PRs, don't force-push to `main`, don't `--amend`
   pushed commits.
+- **Always assign the repo owner, link the issue, and set the milestone.**
+  See the `github-pr` skill in `.opencode/skills/github-pr/SKILL.md`
+  for the exact `gh pr create` invocation. Every PR in this repo must:
+  - have `ramongr` as the assignee,
+  - include `Closes #<issue>` in the body,
+  - be attached to the same milestone as the originating issue
+    (e.g. `v2.1`).
 
 ## Tooling
 
