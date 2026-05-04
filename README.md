@@ -83,6 +83,23 @@ npm run typecheck
 npm run build     # tsup -> dist/
 ```
 
+## Releasing
+
+Releases are triggered by **closing a GitHub milestone** named
+`vMAJOR.MINOR` (e.g. `v2.1`). The release workflow then:
+
+1. Verifies every issue and PR in the milestone is closed/merged and
+   the full quality gate passes.
+2. Opens a `chore(release): MAJOR.MINOR.0` PR that bumps `package.json`
+   and date-stamps the matching `CHANGELOG.md` heading. Auto-merge is
+   enabled.
+3. On PR merge, tags `vMAJOR.MINOR.0` and publishes to npm with
+   provenance, then creates a GitHub Release with notes auto-generated
+   from the milestone's merged PRs.
+
+See `.github/workflows/release.yml`, `tag-on-release-merge.yml`, and
+`publish-on-tag.yml`.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
