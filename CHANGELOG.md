@@ -24,6 +24,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `uniqueBy(values, key)`: dedupe a collection by a dot-path value,
   first occurrence wins.
 
+### Documentation
+
+- Documented the dot-path convention for every key-taking function in a
+  new "Conventions" section of the README, with an explicit note that
+  `extract` remains top-level-only (deferred to v3 to avoid a v2
+  breaking change).
+
+### Tests
+
+- Added nested-path coverage for `where` to lock in the convention.
+
 ### Tooling
 
 - Added internal `pathResolver(path)` helper in `src/shared/` to centralise
