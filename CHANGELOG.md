@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   a single-item lookup.
 - `groupBy(collection, key)`: group items by a dot-path value into
   per-bucket arrays.
+- `countBy(collection, key)`: per-bucket counts indexed by a dot-path
+  value.
 
 ### Tooling
 
