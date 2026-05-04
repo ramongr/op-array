@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0]
 
+### Added
+
+- `keyBy(collection, key)`: index a collection by a dot-path value into
+  a single-item lookup.
+
 ### Tooling
 
 - Added internal `pathResolver(path)` helper in `src/shared/` to centralise

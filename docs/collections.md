@@ -6,6 +6,7 @@ import {
   findById,
   where,
   extract,
+  keyBy,
 } from 'op-array/collections';
 ```
 
@@ -57,4 +58,18 @@ extract(
   ['id', 'name'],
 );
 // [{ id: 1, name: 'Ana' }]
+```
+
+## `keyBy(collection, key)`
+
+Indexes a collection into a single-item lookup keyed by the value at
+`key` (dot-delimited for nested paths). On duplicate keys the **last**
+item wins. Missing paths bucket under the string `'undefined'`. Empty
+input returns `{}`.
+
+```ts
+keyBy([{ id: 'a' }, { id: 'b' }], 'id');
+// { a: { id: 'a' }, b: { id: 'b' } }
+
+keyBy(users, 'profile.email');
 ```
