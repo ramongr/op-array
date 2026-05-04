@@ -1,6 +1,6 @@
 {
   "name": "op-array",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Adding extra functions to the JavaScript Array",
   "homepage": "https://github.com/ramongr/op-array",
   "keywords": [
@@ -22,28 +22,64 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./collections": {
-      "import": { "types": "./dist/collections.d.ts", "default": "./dist/collections.js" },
-      "require": { "types": "./dist/collections.d.cts", "default": "./dist/collections.cjs" }
+      "import": {
+        "types": "./dist/collections.d.ts",
+        "default": "./dist/collections.js"
+      },
+      "require": {
+        "types": "./dist/collections.d.cts",
+        "default": "./dist/collections.cjs"
+      }
     },
     "./logical": {
-      "import": { "types": "./dist/logical.d.ts", "default": "./dist/logical.js" },
-      "require": { "types": "./dist/logical.d.cts", "default": "./dist/logical.cjs" }
+      "import": {
+        "types": "./dist/logical.d.ts",
+        "default": "./dist/logical.js"
+      },
+      "require": {
+        "types": "./dist/logical.d.cts",
+        "default": "./dist/logical.cjs"
+      }
     },
     "./numerical": {
-      "import": { "types": "./dist/numerical.d.ts", "default": "./dist/numerical.js" },
-      "require": { "types": "./dist/numerical.d.cts", "default": "./dist/numerical.cjs" }
+      "import": {
+        "types": "./dist/numerical.d.ts",
+        "default": "./dist/numerical.js"
+      },
+      "require": {
+        "types": "./dist/numerical.d.cts",
+        "default": "./dist/numerical.cjs"
+      }
     },
     "./positional": {
-      "import": { "types": "./dist/positional.d.ts", "default": "./dist/positional.js" },
-      "require": { "types": "./dist/positional.d.cts", "default": "./dist/positional.cjs" }
+      "import": {
+        "types": "./dist/positional.d.ts",
+        "default": "./dist/positional.js"
+      },
+      "require": {
+        "types": "./dist/positional.d.cts",
+        "default": "./dist/positional.cjs"
+      }
     },
     "./transformations": {
-      "import": { "types": "./dist/transformations.d.ts", "default": "./dist/transformations.js" },
-      "require": { "types": "./dist/transformations.d.cts", "default": "./dist/transformations.cjs" }
+      "import": {
+        "types": "./dist/transformations.d.ts",
+        "default": "./dist/transformations.js"
+      },
+      "require": {
+        "types": "./dist/transformations.d.cts",
+        "default": "./dist/transformations.cjs"
+      }
     }
   },
   "files": [
