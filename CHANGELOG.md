@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Tooling
 
+- Added internal `pathResolver(path)` helper in `src/shared/` to centralise
+  dot-path access for upcoming `*By` helpers.
 - Added milestone-driven release automation. Closing a `vMAJOR.MINOR`
   milestone now opens a `chore(release): MAJOR.MINOR.0` PR (auto-merge
   enabled) which on merge tags `vMAJOR.MINOR.0` and triggers
