@@ -1,6 +1,6 @@
 {
   "name": "op-array",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0",
   "description": "Adding extra functions to the JavaScript Array",
   "homepage": "https://github.com/ramongr/op-array",
   "keywords": [
