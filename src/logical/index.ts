@@ -7,3 +7,4 @@ export { equals } from './equals.js';
 export { symmetricDifference } from './symmetricDifference.js';
 export { isSubset } from './isSubset.js';
 export { isSuperset } from './isSuperset.js';
+export { isDisjoint } from './isDisjoint.js';
