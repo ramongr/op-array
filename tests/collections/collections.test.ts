@@ -54,6 +54,22 @@ describe('where', () => {
   test('returns an empty array when nothing matches', () => {
     expect(where(users, 'role', 'guest')).toEqual([]);
   });
+
+  test('matches by a nested dot-delimited key', () => {
+    const records = [
+      { profile: { country: 'PT' } },
+      { profile: { country: 'US' } },
+      { profile: { country: 'PT' } },
+    ];
+    expect(where(records, 'profile.country', 'PT')).toEqual([
+      records[0],
+      records[2],
+    ]);
+  });
+
+  test('returns [] when the path is missing on every item', () => {
+    expect(where([{ a: 1 }, { a: 2 }], 'b.c', 1)).toEqual([]);
+  });
 });
 
 describe('extract', () => {

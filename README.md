@@ -37,6 +37,20 @@ import { min, max, average, median } from 'op-array/numerical';
 Subpaths available: `op-array/collections`, `op-array/logical`,
 `op-array/numerical`, `op-array/positional`, `op-array/transformations`.
 
+## Conventions
+
+Any function that takes a `key: string` argument (`findBy`, `where`,
+`pluck`, `keyBy`, `groupBy`, `countBy`, `uniqueBy`, …) resolves it as a
+**dot-delimited path** through the nested object — the same semantics
+as `findBy(arr, 'profile.email', 'a@x')`. Missing segments resolve to
+`undefined`. There is no callback overload; this single, consistent way
+to address fields is intentional.
+
+> **Limitation:** `extract` currently accepts only top-level keys
+> (`keyof T`) for type-safety reasons. Adding dot-path support would
+> change its return type and is therefore deferred to v3. Use `pluck`
+> for single-field projection if you need nested access today.
+
 ## API overview
 
 | Category | Functions |
