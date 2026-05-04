@@ -3,6 +3,7 @@ import {
   extract,
   findBy,
   findById,
+  pluck,
   where,
 } from '../../src/collections/index.js';
 
@@ -67,5 +68,28 @@ describe('extract', () => {
       { id: 1, name: 'Ana' },
       { id: 2, name: 'Bo' },
     ]);
+  });
+});
+
+describe('pluck', () => {
+  test('projects a top-level key', () => {
+    expect(pluck([{ id: 1 }, { id: 2 }], 'id')).toEqual([1, 2]);
+  });
+
+  test('projects a nested dot-delimited path', () => {
+    expect(
+      pluck(
+        [{ user: { name: 'Ana' } }, { user: { name: 'Bo' } }],
+        'user.name',
+      ),
+    ).toEqual(['Ana', 'Bo']);
+  });
+
+  test('returns undefined for items missing the path', () => {
+    expect(pluck([{ id: 1 }, {}], 'id')).toEqual([1, undefined]);
+  });
+
+  test('returns [] for empty input', () => {
+    expect(pluck<{ id: number }>([], 'id')).toEqual([]);
   });
 });

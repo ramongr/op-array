@@ -6,6 +6,7 @@ import {
   findById,
   where,
   extract,
+  pluck,
 } from 'op-array/collections';
 ```
 
@@ -57,4 +58,21 @@ extract(
   ['id', 'name'],
 );
 // [{ id: 1, name: 'Ana' }]
+```
+
+## `pluck(collection, key)`
+
+Projects every item down to the value at `key` (dot-delimited for
+nested paths). Missing paths resolve to `undefined`. Empty input
+returns `[]`.
+
+```ts
+pluck([{ id: 1 }, { id: 2 }], 'id');
+// [1, 2]
+
+pluck(
+  [{ user: { name: 'Ana' } }, { user: { name: 'Bo' } }],
+  'user.name',
+);
+// ['Ana', 'Bo']
 ```

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0]
 
+### Added
+
+- `pluck(collection, key)`: project a single dot-path field to a flat
+  array of values.
+
 ### Tooling
 
 - Added internal `pathResolver(path)` helper in `src/shared/` to centralise
