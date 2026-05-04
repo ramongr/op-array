@@ -6,7 +6,7 @@
  * compact([0, 1, false, 2, '', 3, null, NaN]); // [1, 2, 3]
  */
 export function compact<T>(values: readonly T[]): NonNullable<T>[] {
-  return values.filter((value): value is NonNullable<T> => Boolean(value));
+  return values.filter(Boolean) as NonNullable<T>[];
 }
 
 /**

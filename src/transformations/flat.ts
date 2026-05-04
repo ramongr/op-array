@@ -8,6 +8,6 @@
  * flat([[1, 2], [3, [4]]]);    // [1, 2, 3, [4]]
  * flat([[1, [2, [3]]]], 2);    // [1, 2, [3]]
  */
-export function flat<T>(values: readonly T[], depth: number = 1): unknown[] {
+export function flat<T>(values: readonly T[], depth = 1): unknown[] {
   return (values as T[]).flat(depth);
 }

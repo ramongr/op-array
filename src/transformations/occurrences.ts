@@ -11,5 +11,5 @@ export function occurrences<T>(values: readonly T[]): [T, number][] {
   for (const value of values) {
     counts.set(value, (counts.get(value) ?? 0) + 1);
   }
-  return Array.from(counts);
+  return [...counts];
 }
