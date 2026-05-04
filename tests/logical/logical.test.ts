@@ -7,6 +7,7 @@ import {
   existsAny,
   intersection,
   isSubset,
+  isSuperset,
   symmetricDifference,
   union,
 } from '../../src/logical/index.js';
@@ -193,5 +194,40 @@ describe('isSubset', () => {
     isSubset(left, right);
     expect(left).toEqual([1, 2]);
     expect(right).toEqual([1, 2, 3]);
+  });
+});
+
+describe('isSuperset', () => {
+  test('returns true when every element of right is in left', () => {
+    expect(isSuperset([1, 2, 3], [1, 2])).toBe(true);
+  });
+
+  test('returns false when at least one element of right is missing', () => {
+    expect(isSuperset([1, 2, 3], [1, 4])).toBe(false);
+  });
+
+  test('treats duplicates in right as a single membership check', () => {
+    expect(isSuperset([1, 2], [1, 1, 2])).toBe(true);
+  });
+
+  test('returns true when arrays are set-equal', () => {
+    expect(isSuperset([1, 2, 3], [3, 2, 1])).toBe(true);
+  });
+
+  test('returns true vacuously for empty right', () => {
+    expect(isSuperset<number>([1, 2], [])).toBe(true);
+    expect(isSuperset<number>([], [])).toBe(true);
+  });
+
+  test('returns false for empty left and non-empty right', () => {
+    expect(isSuperset<number>([], [1])).toBe(false);
+  });
+
+  test('does not mutate inputs', () => {
+    const left = [1, 2, 3];
+    const right = [1, 2];
+    isSuperset(left, right);
+    expect(left).toEqual([1, 2, 3]);
+    expect(right).toEqual([1, 2]);
   });
 });
