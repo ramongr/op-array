@@ -4,3 +4,4 @@ export { union } from './union.js';
 export { exists, existsAll } from './exists.js';
 export { existsAny } from './existsAny.js';
 export { equals } from './equals.js';
+export { symmetricDifference } from './symmetricDifference.js';

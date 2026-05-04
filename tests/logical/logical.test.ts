@@ -6,6 +6,7 @@ import {
   existsAll,
   existsAny,
   intersection,
+  symmetricDifference,
   union,
 } from '../../src/logical/index.js';
 
@@ -118,5 +119,43 @@ describe('equals', () => {
   test('returns false when only one side is empty', () => {
     expect(equals<number>([], [1])).toBe(false);
     expect(equals<number>([1], [])).toBe(false);
+  });
+});
+
+describe('symmetricDifference', () => {
+  test('returns items present in exactly one of the inputs', () => {
+    expect(symmetricDifference([1, 2, 3], [2, 3, 4])).toEqual([1, 4]);
+  });
+
+  test('preserves left-first then right ordering', () => {
+    expect(symmetricDifference([3, 1, 5], [4, 1, 2])).toEqual([3, 5, 4, 2]);
+  });
+
+  test('collapses duplicates within each side', () => {
+    expect(symmetricDifference([1, 1, 2], [2, 3, 3])).toEqual([1, 3]);
+  });
+
+  test('returns left when right is empty (deduped)', () => {
+    expect(symmetricDifference([1, 2, 2], [])).toEqual([1, 2]);
+  });
+
+  test('returns right when left is empty (deduped)', () => {
+    expect(symmetricDifference<number>([], [3, 3, 4])).toEqual([3, 4]);
+  });
+
+  test('returns [] for two empty arrays', () => {
+    expect(symmetricDifference<number>([], [])).toEqual([]);
+  });
+
+  test('returns [] when arrays are set-equal', () => {
+    expect(symmetricDifference([1, 2, 3], [3, 2, 1])).toEqual([]);
+  });
+
+  test('does not mutate inputs', () => {
+    const left = [1, 2, 3];
+    const right = [3, 4];
+    symmetricDifference(left, right);
+    expect(left).toEqual([1, 2, 3]);
+    expect(right).toEqual([3, 4]);
   });
 });

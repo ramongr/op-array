@@ -9,6 +9,7 @@ import {
   existsAll,
   existsAny,
   equals,
+  symmetricDifference,
 } from 'op-array/logical';
 ```
 
@@ -77,4 +78,16 @@ equals([1, 2, 3], [3, 2, 1]); // true
 equals([1, 2], [1, 2, 2]);    // true  (set semantics)
 equals([1, 2], [1, 3]);       // false
 equals([], []);               // true
+```
+
+## `symmetricDifference(left, right)`
+
+Items present in exactly one of `left` or `right` (xor). Left-first then
+right ordering; duplicates collapsed via `Set`. O(n + m).
+
+```ts
+symmetricDifference([1, 2, 3], [2, 3, 4]); // [1, 4]
+symmetricDifference([1, 1, 2], [2, 3, 3]); // [1, 3]
+symmetricDifference([1, 2], [2, 1]);       // []
+symmetricDifference([], []);               // []
 ```
