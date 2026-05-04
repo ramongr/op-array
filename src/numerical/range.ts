@@ -3,6 +3,8 @@
  * and smallest value. Computed in a single pass.
  *
  * - Single-element input returns `0`.
+ * - Propagates `NaN`: any `NaN` in the input makes the result `NaN`,
+ *   matching `min` / `max` / `Math.min` / `Math.max`.
  *
  * @throws {TypeError} when called with an empty array.
  *
@@ -16,8 +18,10 @@ export function range(values: readonly number[]): number {
   }
   let lo = values[0] as number;
   let hi = lo;
+  if (Number.isNaN(lo)) return Number.NaN;
   for (let i = 1; i < values.length; i++) {
     const v = values[i] as number;
+    if (Number.isNaN(v)) return Number.NaN;
     if (v < lo) lo = v;
     else if (v > hi) hi = v;
   }

@@ -137,6 +137,12 @@ describe('range', () => {
     expect(() => range([])).toThrow(TypeError);
   });
 
+  test('propagates NaN (matches Math.min/Math.max)', () => {
+    expect(range([1, Number.NaN, 3])).toBeNaN();
+    expect(range([Number.NaN, 1, 2])).toBeNaN();
+    expect(range([1, 2, Number.NaN])).toBeNaN();
+  });
+
   test('does not mutate the input', () => {
     const input = [3, 1, 2];
     range(input);
