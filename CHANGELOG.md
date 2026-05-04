@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0]
+
+### Tooling
+
+- Added milestone-driven release automation. Closing a `vMAJOR.MINOR`
+  milestone now opens a `chore(release): MAJOR.MINOR.0` PR (auto-merge
+  enabled) which on merge tags `vMAJOR.MINOR.0` and triggers
+  `npm publish --provenance --access public` plus a GitHub Release with
+  notes auto-generated from the milestone's PRs. See
+  `.github/workflows/release.yml`, `tag-on-release-merge.yml`, and
+  `publish-on-tag.yml`.
+- Authenticated `npm publish` via npm Trusted Publishing (OIDC) inside
+  the `npm-publish` GitHub Environment — no long-lived `NPM_TOKEN`
+  stored in the repo.
+
 ## [2.0.0] - 2026-05-04
 
 ### Breaking changes
