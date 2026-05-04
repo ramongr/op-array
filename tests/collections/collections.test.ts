@@ -3,6 +3,7 @@ import {
   extract,
   findBy,
   findById,
+  partition,
   pluck,
   where,
 } from '../../src/collections/index.js';
@@ -91,5 +92,40 @@ describe('pluck', () => {
 
   test('returns [] for empty input', () => {
     expect(pluck<{ id: number }>([], 'id')).toEqual([]);
+  });
+});
+
+describe('partition', () => {
+  test('splits items by predicate into pass / fail buckets', () => {
+    expect(partition([1, 2, 3, 4], (n) => n % 2 === 0)).toEqual({
+      pass: [2, 4],
+      fail: [1, 3],
+    });
+  });
+
+  test('passes the index to the predicate', () => {
+    expect(
+      partition(['a', 'b', 'c', 'd'], (_item, index) => index < 2),
+    ).toEqual({ pass: ['a', 'b'], fail: ['c', 'd'] });
+  });
+
+  test('returns both buckets empty for empty input', () => {
+    expect(partition<number>([], (n) => n > 0)).toEqual({
+      pass: [],
+      fail: [],
+    });
+  });
+
+  test('preserves source order within each bucket', () => {
+    const items = [3, 1, 4, 1, 5, 9, 2, 6];
+    const { pass, fail } = partition(items, (n) => n > 2);
+    expect(pass).toEqual([3, 4, 5, 9, 6]);
+    expect(fail).toEqual([1, 1, 2]);
+  });
+
+  test('does not mutate the input', () => {
+    const input = [1, 2, 3];
+    partition(input, (n) => n > 1);
+    expect(input).toEqual([1, 2, 3]);
   });
 });
