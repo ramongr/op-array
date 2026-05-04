@@ -1,86 +1,55 @@
-"use strict";
-
-var _emptyValues = require("../shared/empty-values");
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-if (!Array.prototype.unique) {
-  Array.prototype.unique = function () {
-    return Array.from(new Set(this));
-  };
+// src/transformations/unique.ts
+function unique(values) {
+  return Array.from(new Set(values));
 }
 
-if (!Array.prototype.flat) {
-  Array.prototype.flat = function () {
-    return this.reduce(function (flatArray, array) {
-      return [].concat(_toConsumableArray(flatArray), _toConsumableArray(array));
-    });
-  };
+// src/transformations/flat.ts
+function flat(values, depth = 1) {
+  return values.flat(depth);
 }
 
-if (!Array.prototype.intervals) {
-  Array.prototype.intervals = function (amount) {
-    var offset = Math.ceil(this.length / amount);
-    return this.reduce(function (offsets, _, index) {
-      if (index === 0 || index % offset === 0) {
-        offsets.push([index, index + offset]);
-      }
-
-      return offsets;
-    }, []);
-  };
+// src/transformations/inGroups.ts
+function inGroups(values, groupCount) {
+  if (groupCount <= 0 || !Number.isFinite(groupCount)) {
+    throw new RangeError("inGroups: groupCount must be a positive integer");
+  }
+  const size = Math.ceil(values.length / groupCount);
+  const groups = [];
+  for (let i = 0; i < groupCount; i++) {
+    groups.push(values.slice(i * size, (i + 1) * size));
+  }
+  return groups;
+}
+function inGroupsOf(values, size) {
+  if (size <= 0 || !Number.isFinite(size)) {
+    throw new RangeError("inGroupsOf: size must be a positive integer");
+  }
+  const groups = [];
+  for (let i = 0; i < values.length; i += size) {
+    groups.push(values.slice(i, i + size));
+  }
+  return groups;
 }
 
-if (!Array.prototype.inGroups) {
-  Array.prototype.inGroups = function (amount) {
-    var _this = this;
-
-    return this.intervals(amount).map(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-          firstIndex = _ref2[0],
-          lastIndex = _ref2[1];
-
-      return _this.slice(firstIndex, lastIndex);
-    });
-  };
+// src/transformations/occurrences.ts
+function occurrences(values) {
+  const counts = /* @__PURE__ */ new Map();
+  for (const value of values) {
+    counts.set(value, (counts.get(value) ?? 0) + 1);
+  }
+  return Array.from(counts);
 }
 
-if (!Array.prototype.occurrences) {
-  Array.prototype.occurrences = function () {
-    var occurrences = new Map();
-    this.forEach(function (item) {
-      var itemValue = occurrences.get(item);
-
-      if (itemValue === undefined) {
-        occurrences.set(item, 1);
-      } else {
-        occurrences.set(item, itemValue + 1);
-      }
-    });
-    return Array.from(occurrences);
-  };
+// src/transformations/compact.ts
+function compact(values) {
+  return values.filter((value) => Boolean(value));
+}
+function compactNullish(values) {
+  return values.filter(
+    (value) => value !== null && value !== void 0
+  );
 }
 
-if (!Array.prototype.compact) {
-  Array.prototype.compact = function () {
-    return this.filter(_emptyValues.hasValue);
-  };
-}
+export { compact, compactNullish, flat, inGroups, inGroupsOf, occurrences, unique };
+//# sourceMappingURL=transformations.js.map
+//# sourceMappingURL=transformations.js.map
