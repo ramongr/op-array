@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `symmetricDifference(left, right)`: items present in exactly one of
   the two arrays (xor). Left-first then right ordering, duplicates
   collapsed via `Set`. O(n + m).
+- `isSubset(left, right)`: `true` when every distinct element of `left`
+  is in `right`. Empty `left` is vacuously a subset. O(n + m).
 
 ### Tooling
 

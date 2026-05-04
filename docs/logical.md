@@ -10,6 +10,7 @@ import {
   existsAny,
   equals,
   symmetricDifference,
+  isSubset,
 } from 'op-array/logical';
 ```
 
@@ -90,4 +91,18 @@ symmetricDifference([1, 2, 3], [2, 3, 4]); // [1, 4]
 symmetricDifference([1, 1, 2], [2, 3, 3]); // [1, 3]
 symmetricDifference([1, 2], [2, 1]);       // []
 symmetricDifference([], []);               // []
+```
+
+## `isSubset(left, right)`
+
+`true` when every distinct element of `left` is in `right`. Empty `left`
+is vacuously a subset of any array (including `[]`). Element comparison
+uses `Set` (SameValueZero) semantics. O(n + m).
+
+```ts
+isSubset([1, 2], [1, 2, 3]); // true
+isSubset([1, 4], [1, 2, 3]); // false
+isSubset([1, 2, 3], [3, 2, 1]); // true (set-equal)
+isSubset([], [1, 2]);        // true
+isSubset([1], []);           // false
 ```
