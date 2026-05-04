@@ -3,6 +3,7 @@ import {
   extract,
   findBy,
   findById,
+  keyBy,
   partition,
   pluck,
   where,
@@ -69,6 +70,49 @@ describe('extract', () => {
       { id: 1, name: 'Ana' },
       { id: 2, name: 'Bo' },
     ]);
+  });
+});
+
+describe('keyBy', () => {
+  test('indexes by a top-level key', () => {
+    expect(keyBy([{ id: 'a' }, { id: 'b' }], 'id')).toEqual({
+      a: { id: 'a' },
+      b: { id: 'b' },
+    });
+  });
+
+  test('indexes by a nested dot-delimited path', () => {
+    const users = [
+      { profile: { email: 'a@x' }, name: 'Ana' },
+      { profile: { email: 'b@x' }, name: 'Bo' },
+    ];
+    expect(keyBy(users, 'profile.email')).toEqual({
+      'a@x': users[0],
+      'b@x': users[1],
+    });
+  });
+
+  test('last item wins on duplicate keys', () => {
+    expect(
+      keyBy(
+        [
+          { id: 'a', n: 1 },
+          { id: 'a', n: 2 },
+        ],
+        'id',
+      ),
+    ).toEqual({ a: { id: 'a', n: 2 } });
+  });
+
+  test('buckets missing paths under the string "undefined"', () => {
+    expect(keyBy([{ id: 'a' }, {}], 'id')).toEqual({
+      a: { id: 'a' },
+      undefined: {},
+    });
+  });
+
+  test('returns {} for empty input', () => {
+    expect(keyBy<{ id: string }>([], 'id')).toEqual({});
   });
 });
 

@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `{ pass, fail }` buckets.
 - `pluck(collection, key)`: project a single dot-path field to a flat
   array of values.
+- `keyBy(collection, key)`: index a collection by a dot-path value into
+  a single-item lookup.
 
 ### Tooling
 

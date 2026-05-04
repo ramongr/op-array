@@ -41,7 +41,7 @@ Subpaths available: `op-array/collections`, `op-array/logical`,
 
 | Category | Functions |
 |---|---|
-| **Collections** | `findBy`, `findById`, `where`, `extract`, `pluck` |
+| **Collections** | `findBy`, `findById`, `where`, `extract`, `pluck`, `keyBy` |
 | **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll`, `existsAny`, `equals` |
 | **Numerical** | `min`, `max`, `sum`, `subtract`, `product`, `average`, `hasEvenLength`, `median`, `mode` |
 | **Positional** | `first`, `second`, `third`, `last` |
