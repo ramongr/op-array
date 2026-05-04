@@ -8,6 +8,7 @@ import {
   extract,
   pluck,
   keyBy,
+  groupBy,
   partition,
 } from 'op-array/collections';
 ```
@@ -93,6 +94,19 @@ keyBy([{ id: 'a' }, { id: 'b' }], 'id');
 keyBy(users, 'profile.email');
 ```
 
+## `groupBy(collection, key)`
+
+Groups items by the value at `key` (dot-delimited for nested paths).
+Group order is the first-seen order of each bucket. Missing paths
+bucket under the string `'undefined'`. Empty input returns `{}`.
+
+```ts
+groupBy(orders, 'status');
+// { paid: [...], refunded: [...] }
+
+groupBy(users, 'address.country');
+```
+
 ## `partition(collection, predicate)`
 
 Splits the collection into two arrays in a single pass. Items for which
@@ -108,4 +122,5 @@ const { pass: adults, fail: minors } = partition(
   users,
   (u) => u.age >= 18,
 );
+```
 ```

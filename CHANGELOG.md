@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   array of values.
 - `keyBy(collection, key)`: index a collection by a dot-path value into
   a single-item lookup.
+- `groupBy(collection, key)`: group items by a dot-path value into
+  per-bucket arrays.
 
 ### Tooling
 
