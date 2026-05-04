@@ -5,3 +5,4 @@ export { exists, existsAll } from './exists.js';
 export { existsAny } from './existsAny.js';
 export { equals } from './equals.js';
 export { symmetricDifference } from './symmetricDifference.js';
+export { isSubset } from './isSubset.js';
