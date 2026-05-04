@@ -48,7 +48,7 @@ jobs:
             node 22
 
       - name: Use latest npm (Trusted Publishing requires npm >= 11.5.1)
-        run: npm install -g npm@latest
+        run: npm install -g npm@latest --force
 
       - name: Install dependencies
         run: npm ci
