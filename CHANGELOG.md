@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0]
 
+### Added
+
+- `countBy(collection, key)`: per-bucket counts indexed by a dot-path
+  value.
+
 ### Tooling
 
 - Added internal `pathResolver(path)` helper in `src/shared/` to centralise

@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
+  countBy,
   extract,
   findBy,
   findById,
@@ -67,5 +68,37 @@ describe('extract', () => {
       { id: 1, name: 'Ana' },
       { id: 2, name: 'Bo' },
     ]);
+  });
+});
+
+describe('countBy', () => {
+  test('counts by a top-level key', () => {
+    const orders = [
+      { status: 'paid' },
+      { status: 'refunded' },
+      { status: 'paid' },
+      { status: 'paid' },
+    ];
+    expect(countBy(orders, 'status')).toEqual({ paid: 3, refunded: 1 });
+  });
+
+  test('counts by a nested dot-delimited path', () => {
+    const users = [
+      { address: { country: 'PT' } },
+      { address: { country: 'US' } },
+      { address: { country: 'PT' } },
+    ];
+    expect(countBy(users, 'address.country')).toEqual({ PT: 2, US: 1 });
+  });
+
+  test('counts missing paths under the string "undefined"', () => {
+    expect(countBy([{ id: 'a' }, {}, {}], 'id')).toEqual({
+      a: 1,
+      undefined: 2,
+    });
+  });
+
+  test('returns {} for empty input', () => {
+    expect(countBy<{ id: string }>([], 'id')).toEqual({});
   });
 });

@@ -6,6 +6,7 @@ import {
   findById,
   where,
   extract,
+  countBy,
 } from 'op-array/collections';
 ```
 
@@ -57,4 +58,18 @@ extract(
   ['id', 'name'],
 );
 // [{ id: 1, name: 'Ana' }]
+```
+
+## `countBy(collection, key)`
+
+Counts items per bucket where each bucket is the value at `key`
+(dot-delimited for nested paths). Complements `occurrences` (which
+counts whole values) by counting per dot-path key. Missing paths count
+under the string `'undefined'`. Empty input returns `{}`.
+
+```ts
+countBy(orders, 'status');
+// { paid: 3, refunded: 1 }
+
+countBy(users, 'address.country');
 ```
