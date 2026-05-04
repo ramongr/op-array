@@ -1,0 +1,136 @@
+name: Release
+
+on:
+  milestone:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      milestone:
+        description: 'Milestone title (e.g. v2.1)'
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  prepare:
+    name: Prepare release PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Resolve milestone title
+        id: ms
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_TITLE: ${{ github.event.milestone.title }}
+          INPUT_TITLE: ${{ inputs.milestone }}
+        run: |
+          TITLE="${EVENT_TITLE:-$INPUT_TITLE}"
+          if [[ ! "$TITLE" =~ ^v[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Milestone title '$TITLE' does not match vMAJOR.MINOR (e.g. v2.1). Skipping release."
+            exit 1
+          fi
+          VERSION="${TITLE#v}.0"
+          echo "title=$TITLE"     >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved milestone $TITLE -> version $VERSION"
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify milestone has no open items
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MILESTONE: ${{ steps.ms.outputs.title }}
+        run: |
+          OPEN=$(gh issue list --milestone "$MILESTONE" --state open --json number --jq 'length')
+          OPEN_PRS=$(gh pr list --search "milestone:$MILESTONE" --state open --json number --jq 'length')
+          if [[ "$OPEN" -gt 0 || "$OPEN_PRS" -gt 0 ]]; then
+            echo "::error::Milestone $MILESTONE still has $OPEN open issues and $OPEN_PRS open PRs."
+            exit 1
+          fi
+
+      - name: Install mise
+        uses: jdx/mise-action@v2
+        with:
+          tool_versions: |
+            node 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Quality gate
+        run: |
+          npm run lint
+          npm run typecheck
+          npm test
+          npm run build
+
+      - name: Pre-flight registry check
+        env:
+          VERSION: ${{ steps.ms.outputs.version }}
+        run: |
+          if npm view "op-array@$VERSION" version >/dev/null 2>&1; then
+            echo "::error::op-array@$VERSION is already published to npm."
+            exit 1
+          fi
+          echo "op-array@$VERSION is not yet on npm — proceeding."
+
+      - name: Configure git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version and date-stamp CHANGELOG
+        env:
+          VERSION: ${{ steps.ms.outputs.version }}
+        run: |
+          npm version "$VERSION" --no-git-tag-version
+          DATE=$(date -u +%Y-%m-%d)
+          if ! grep -q "^## \[$VERSION\]$" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md is missing an unreleased '## [$VERSION]' heading."
+            exit 1
+          fi
+          sed -i "s|^## \[$VERSION\]$|## [$VERSION] - $DATE|" CHANGELOG.md
+          echo "Bumped to $VERSION and stamped CHANGELOG with $DATE."
+
+      - name: Create release branch and PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.ms.outputs.version }}
+          MILESTONE: ${{ steps.ms.outputs.title }}
+        run: |
+          BRANCH="chore/release-$VERSION"
+          git checkout -b "$BRANCH"
+          git add package.json package-lock.json CHANGELOG.md
+          git commit -m "chore(release): $VERSION"
+          git push -u origin "$BRANCH"
+
+          BODY=$(cat <<EOF
+          ## Summary
+          Automated release PR for milestone \`$MILESTONE\`. Bumps \`package.json\` to \`$VERSION\` and date-stamps the \`## [$VERSION]\` heading in \`CHANGELOG.md\`.
+
+          ## What ships next
+          On merge, \`tag-on-release-merge.yml\` will push tag \`v$VERSION\`, which fires \`publish-on-tag.yml\` to publish to npm and create the GitHub Release with auto-generated notes from this milestone's PRs.
+
+          ## Milestone PRs
+          See https://github.com/${{ github.repository }}/milestone/${{ github.event.milestone.number }}?closed=1
+          EOF
+          )
+
+          PR_URL=$(gh pr create \
+            --title "chore(release): $VERSION" \
+            --base main \
+            --head "$BRANCH" \
+            --assignee ramongr \
+            --milestone "$MILESTONE" \
+            --body "$BODY")
+
+          echo "Opened $PR_URL"
+          gh pr merge "$PR_URL" --squash --auto
