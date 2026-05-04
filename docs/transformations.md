@@ -3,6 +3,7 @@
 ```ts
 import {
   unique,
+  uniqueBy,
   flat,
   inGroups,
   inGroupsOf,
@@ -16,6 +17,17 @@ import {
 
 ```ts
 unique([1, 2, 2, 3, 1]); // [1, 2, 3]
+```
+
+## `uniqueBy(values, key)`
+
+Dedupes by the value at `key` (dot-delimited for nested paths). First
+occurrence per resolved key wins, preserving order. Items missing the
+path collapse to a single `undefined` bucket. Empty input returns `[]`.
+
+```ts
+uniqueBy(users, 'id');
+uniqueBy(orders, 'customer.email');
 ```
 
 ## `flat(values, depth = 1)`
