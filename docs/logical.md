@@ -11,6 +11,7 @@ import {
   equals,
   symmetricDifference,
   isSubset,
+  isSuperset,
 } from 'op-array/logical';
 ```
 
@@ -105,4 +106,19 @@ isSubset([1, 4], [1, 2, 3]); // false
 isSubset([1, 2, 3], [3, 2, 1]); // true (set-equal)
 isSubset([], [1, 2]);        // true
 isSubset([1], []);           // false
+```
+
+## `isSuperset(left, right)`
+
+`true` when every distinct element of `right` is in `left`, i.e. `left`
+is a (non-strict) superset of `right`. Empty `right` is vacuously a
+subset of any array, so any `left` is a superset of `[]`. Element
+comparison uses `Set` (SameValueZero) semantics. O(n + m).
+
+```ts
+isSuperset([1, 2, 3], [1, 2]);    // true
+isSuperset([1, 2, 3], [1, 4]);    // false
+isSuperset([1, 2, 3], [3, 2, 1]); // true (set-equal)
+isSuperset([1, 2], []);           // true
+isSuperset([], [1]);              // false
 ```

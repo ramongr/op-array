@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   collapsed via `Set`. O(n + m).
 - `isSubset(left, right)`: `true` when every distinct element of `left`
   is in `right`. Empty `left` is vacuously a subset. O(n + m).
+- `isSuperset(left, right)`: `true` when every distinct element of
+  `right` is in `left`. Any `left` is a superset of `[]`. O(n + m).
 
 ### Tooling
 
