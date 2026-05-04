@@ -42,7 +42,7 @@ Subpaths available: `op-array/collections`, `op-array/logical`,
 | Category | Functions |
 |---|---|
 | **Collections** | `findBy`, `findById`, `where`, `extract` |
-| **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll` |
+| **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll`, `existsAny` |
 | **Numerical** | `min`, `max`, `sum`, `subtract`, `product`, `average`, `hasEvenLength`, `median`, `mode` |
 | **Positional** | `first`, `second`, `third`, `last` |
 | **Transformations** | `unique`, `flat`, `inGroups`, `inGroupsOf`, `occurrences`, `compact`, `compactNullish` |

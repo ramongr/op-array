@@ -3,6 +3,7 @@ import {
   except,
   exists,
   existsAll,
+  existsAny,
   intersection,
   union,
 } from '../../src/logical/index.js';
@@ -75,5 +76,23 @@ describe('existsAll', () => {
 
   test('returns true vacuously for empty items on non-empty source', () => {
     expect(existsAll([1], [])).toBe(true);
+  });
+});
+
+describe('existsAny', () => {
+  test('returns true when at least one item is present', () => {
+    expect(existsAny([1, 2, 3], [4, 2])).toBe(true);
+  });
+
+  test('returns false when no item is present', () => {
+    expect(existsAny([1, 2, 3], [4, 5])).toBe(false);
+  });
+
+  test('returns false on empty source', () => {
+    expect(existsAny<number>([], [1])).toBe(false);
+  });
+
+  test('returns false on empty items', () => {
+    expect(existsAny([1], [])).toBe(false);
   });
 });
