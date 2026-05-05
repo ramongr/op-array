@@ -16,6 +16,7 @@ import {
   standardDeviation,
   quantile,
   cumulativeSum,
+  minBy,
 } from 'op-array/numerical';
 ```
 
@@ -160,4 +161,24 @@ subsequent position.
 ```ts
 cumulativeSum([1, 2, 3, 4]); // [1, 3, 6, 10]
 cumulativeSum([]);           // []
+```
+
+## `minBy(collection, key)`
+
+Returns the item with the smallest numeric value at `key`
+(dot-delimited for nested paths), or `undefined` when no item has a
+comparable numeric value. Returns the source item, not the resolved
+numeric value. Empty input returns `undefined`. Ties resolve to the
+first occurrence. Items where the resolved value is missing, `NaN`,
+or not a `number` are excluded from comparison.
+
+```ts
+const products = [{ price: 9 }, { price: 3 }, { price: 7 }];
+minBy(products, 'price'); // { price: 3 }
+
+const users = [
+  { name: 'Ana', profile: { age: 30 } },
+  { name: 'Bob', profile: { age: 22 } },
+];
+minBy(users, 'profile.age'); // { name: 'Bob', profile: { age: 22 } }
 ```

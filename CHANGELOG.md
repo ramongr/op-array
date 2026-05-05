@@ -33,6 +33,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `cumulativeSum(values)`: running totals. Returns an array of the
   same length where each element is the sum of all input values up to
   and including that index. Returns `[]` for empty input.
+- `minBy(collection, key)`: item with the smallest numeric value at
+  the dot-delimited `key`. Returns `undefined` on empty input or when
+  no item has a comparable numeric value. Items whose resolved value
+  is missing, `NaN`, or not a number are excluded; ties resolve to
+  the first occurrence.
 
 ### Tooling
 
