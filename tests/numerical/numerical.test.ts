@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   average,
+  averageBy,
   cumulativeSum,
   hasEvenLength,
   max,
@@ -561,6 +562,61 @@ describe('sumBy', () => {
     const items = [{ n: 1 }, { n: 2 }, { n: 3 }];
     const snapshot = [...items];
     sumBy(items, 'n');
+    expect(items).toEqual(snapshot);
+  });
+});
+
+describe('averageBy', () => {
+  test('returns the arithmetic mean of values at the key', () => {
+    expect(averageBy([{ grade: 80 }, { grade: 90 }, { grade: 100 }], 'grade')).toBe(90);
+  });
+
+  test('resolves dot-delimited nested paths', () => {
+    const users = [
+      { name: 'Ana', profile: { age: 20 } },
+      { name: 'Bob', profile: { age: 30 } },
+      { name: 'Cid', profile: { age: 40 } },
+    ];
+    expect(averageBy(users, 'profile.age')).toBe(30);
+  });
+
+  test('returns NaN for empty input (matches average)', () => {
+    expect(averageBy([], 'grade')).toBeNaN();
+  });
+
+  test('handles a single item', () => {
+    expect(averageBy([{ n: 42 }], 'n')).toBe(42);
+  });
+
+  test('handles negatives and zero', () => {
+    expect(averageBy([{ n: -2 }, { n: 0 }, { n: 5 }], 'n')).toBeCloseTo(1, 12);
+  });
+
+  test('throws TypeError when the path is missing on any item', () => {
+    expect(() =>
+      averageBy([{ price: 5 }, { name: 'no-price' }], 'price'),
+    ).toThrow(/missing/);
+  });
+
+  test('throws TypeError when the resolved value is not a number', () => {
+    expect(() => averageBy([{ price: '5' }], 'price')).toThrow(/string/);
+    expect(() => averageBy([{ price: null }], 'price')).toThrow(/null/);
+  });
+
+  test('error message reports the offending item index', () => {
+    expect(() =>
+      averageBy([{ n: 1 }, { n: 2 }, { n: '3' }, { n: 4 }], 'n'),
+    ).toThrow(/item 2/);
+  });
+
+  test('propagates NaN', () => {
+    expect(averageBy([{ n: 1 }, { n: Number.NaN }, { n: 3 }], 'n')).toBeNaN();
+  });
+
+  test('does not mutate the input', () => {
+    const items = [{ n: 1 }, { n: 2 }, { n: 3 }];
+    const snapshot = [...items];
+    averageBy(items, 'n');
     expect(items).toEqual(snapshot);
   });
 });

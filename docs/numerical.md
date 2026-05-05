@@ -19,6 +19,7 @@ import {
   minBy,
   maxBy,
   sumBy,
+  averageBy,
 } from 'op-array/numerical';
 ```
 
@@ -220,4 +221,22 @@ const orders = [
   { shipping: { fee: 7.5 } },
 ];
 sumBy(orders, 'shipping.fee'); // 12.5
+```
+
+## `averageBy(collection, key)`
+
+Arithmetic mean of the numeric values at `key` (dot-delimited for
+nested paths) across every item in `collection`. Strict: any item
+where the resolved value is missing or not a `number` throws
+`TypeError`. Empty input returns `NaN` (matches `average`,
+consistent with `0 / 0`). `NaN` propagates.
+
+```ts
+averageBy([{ grade: 80 }, { grade: 90 }], 'grade'); // 85
+
+const users = [
+  { name: 'Ana', profile: { age: 20 } },
+  { name: 'Bob', profile: { age: 40 } },
+];
+averageBy(users, 'profile.age'); // 30
 ```

@@ -15,3 +15,4 @@ export { cumulativeSum } from './cumulativeSum.js';
 export { minBy } from './minBy.js';
 export { maxBy } from './maxBy.js';
 export { sumBy } from './sumBy.js';
+export { averageBy } from './averageBy.js';
