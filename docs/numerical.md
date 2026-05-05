@@ -11,6 +11,7 @@ import {
   hasEvenLength,
   median,
   mode,
+  range,
 } from 'op-array/numerical';
 ```
 
@@ -79,4 +80,16 @@ order. Returns `[]` for empty input.
 ```ts
 mode([1, 2, 2, 3]);     // [2]
 mode([1, 1, 2, 2, 3]);  // [1, 2]
+```
+
+## `range(values)`
+
+Difference between the largest and smallest value (a.k.a. extent or
+spread). Single pass. Single-element input returns `0`. Any `NaN` in
+the input propagates to the result (matches `Math.min` / `Math.max`).
+**Throws `TypeError`** on empty input.
+
+```ts
+range([1, 5, 3, 9, 2]); // 8
+range([42]);            // 0
 ```

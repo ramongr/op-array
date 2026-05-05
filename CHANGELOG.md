@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `right` is in `left`. Any `left` is a superset of `[]`. O(n + m).
 - `isDisjoint(left, right)`: `true` when `left` and `right` share no
   elements. Either side empty is vacuously disjoint. O(n + m).
+- `range(values)`: difference between the largest and smallest value
+  (a.k.a. extent / spread). Single pass. Throws `TypeError` on empty
+  input.
 
 ### Tooling
 
