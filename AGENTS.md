@@ -117,7 +117,7 @@ npm test
 npm run build
 ```
 
-Run these before pushing. CI runs the same matrix on Node 20 and 22.
+Run these before pushing. CI runs the same matrix on Node 22, 24, and 25.
 
 ## Git & PR workflow
 
@@ -158,7 +158,7 @@ Run these before pushing. CI runs the same matrix on Node 20 and 22.
 
 ## Tooling
 
-- Node ≥ 20 (managed via [mise](https://mise.jdx.dev), see `mise.toml`).
+- Node ≥ 22 (managed via [mise](https://mise.jdx.dev), see `mise.toml`).
 - Package manager: `npm`.
 - Build: `tsup` (dual ESM + CJS, types per entry).
 - Tests: `vitest` with v8 coverage.

@@ -62,9 +62,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   etc.). Tests get a small relaxed override.
 - Bumped `tsconfig.json` `lib` to `ES2023` so the codebase can use
   `Array.prototype.toSorted` (Node ≥20 already required at runtime).
+- CI matrix updated to Node 22 (Maintenance LTS), 24 (Active LTS),
+  and 25 (Current). Node 20 dropped now that it has reached EOL.
+- Hardened the milestone-driven release pipeline (`release.yml`,
+  `tag-on-release-merge.yml`, `publish-on-tag.yml`) so the v2.2
+  release runs end-to-end without manual intervention:
+  - `release.yml` attaches the release PR to its (already-closed)
+    milestone via the REST API, after `gh pr create` (which only
+    resolves open milestones by title).
+  - `release.yml` switched from `mise` + Node 22 to `actions/setup-
+    node@v4` Node 24, matching `publish-on-tag.yml` and avoiding the
+    broken bundled npm in older Node 22.x.x images.
+  - `tag-on-release-merge.yml` now explicitly invokes
+    `publish-on-tag.yml` via `gh workflow run` after pushing the
+    tag (tags pushed using `GITHUB_TOKEN` cannot fire downstream
+    `on: push: tags` triggers — anti-recursion rule). No PAT or
+    GitHub App token required; npm Trusted Publishing via OIDC
+    still handles registry auth.
+  - Added `docs/release.md` documenting the pipeline contracts and
+    manual recovery paths for each stage.
 
 ### Changed
 
+- **Minimum supported Node version is now 22.** `package.json`
+  `engines.node` bumped from `>=20` to `>=22` now that Node 20 has
+  reached end-of-life. Consumers still on Node 20 will see an
+  `EBADENGINE` warning from npm on install.
 - `compact` uses the idiomatic `.filter(Boolean) as NonNullable<T>[]`.
 - `unique`, `union`, `occurrences` use spread instead of `Array.from`.
 - `median` uses `Array.prototype.toSorted` instead of
