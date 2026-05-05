@@ -4,6 +4,7 @@ import {
   cumulativeSum,
   hasEvenLength,
   max,
+  maxBy,
   median,
   min,
   minBy,
@@ -423,6 +424,87 @@ describe('minBy', () => {
     const items = [{ n: 3 }, { n: 1 }, { n: 2 }];
     const snapshot = [...items];
     minBy(items, 'n');
+    expect(items).toEqual(snapshot);
+  });
+});
+
+describe('maxBy', () => {
+  test('returns the item with the largest value at the key', () => {
+    const items = [{ price: 9 }, { price: 3 }, { price: 7 }];
+    expect(maxBy(items, 'price')).toEqual({ price: 9 });
+  });
+
+  test('resolves dot-delimited nested paths', () => {
+    const users = [
+      { name: 'Ana', profile: { age: 30 } },
+      { name: 'Bob', profile: { age: 22 } },
+      { name: 'Cid', profile: { age: 41 } },
+    ];
+    expect(maxBy(users, 'profile.age')).toEqual({
+      name: 'Cid',
+      profile: { age: 41 },
+    });
+  });
+
+  test('returns undefined for empty input', () => {
+    expect(maxBy([], 'price')).toBeUndefined();
+  });
+
+  test('first occurrence wins on ties', () => {
+    const items = [
+      { id: 'a', n: 5 },
+      { id: 'b', n: 9 },
+      { id: 'c', n: 9 },
+    ];
+    expect(maxBy(items, 'n')).toEqual({ id: 'b', n: 9 });
+  });
+
+  test('excludes items where the path is missing', () => {
+    const items = [{ price: 5 }, { name: 'no-price' }, { price: 8 }];
+    expect(maxBy(items, 'price')).toEqual({ price: 8 });
+  });
+
+  test('excludes items where an intermediate path segment is missing', () => {
+    const items = [
+      { name: 'Ana', profile: { age: 30 } },
+      { name: 'Bob' }, // no profile at all
+      { name: 'Cid', profile: { age: 41 } },
+    ];
+    expect(maxBy(items, 'profile.age')).toEqual({
+      name: 'Cid',
+      profile: { age: 41 },
+    });
+  });
+
+  test('excludes items whose value is not a number', () => {
+    const items = [
+      { price: '99' },
+      { price: 5 },
+      { price: null },
+      { price: 8 },
+    ];
+    expect(maxBy(items, 'price')).toEqual({ price: 8 });
+  });
+
+  test('excludes NaN values', () => {
+    const items = [{ n: Number.NaN }, { n: 4 }, { n: Number.NaN }];
+    expect(maxBy(items, 'n')).toEqual({ n: 4 });
+  });
+
+  test('returns undefined when no item has a comparable numeric value', () => {
+    const items = [{ price: null }, { price: '3' }, {}];
+    expect(maxBy(items, 'price')).toBeUndefined();
+  });
+
+  test('handles negative numbers and zero', () => {
+    const items = [{ n: -5 }, { n: -1 }, { n: -10 }, { n: 0 }];
+    expect(maxBy(items, 'n')).toEqual({ n: 0 });
+  });
+
+  test('does not mutate the input', () => {
+    const items = [{ n: 3 }, { n: 9 }, { n: 2 }];
+    const snapshot = [...items];
+    maxBy(items, 'n');
     expect(items).toEqual(snapshot);
   });
 });

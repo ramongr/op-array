@@ -13,3 +13,4 @@ export { standardDeviation } from './standardDeviation.js';
 export { quantile } from './quantile.js';
 export { cumulativeSum } from './cumulativeSum.js';
 export { minBy } from './minBy.js';
+export { maxBy } from './maxBy.js';

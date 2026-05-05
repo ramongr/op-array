@@ -38,6 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   no item has a comparable numeric value. Items whose resolved value
   is missing, `NaN`, or not a number are excluded; ties resolve to
   the first occurrence.
+- `maxBy(collection, key)`: symmetric to `minBy` — item with the
+  largest numeric value at the dot-delimited `key`. Same exclusion
+  rules and tie-breaking.
 
 ### Tooling
 
