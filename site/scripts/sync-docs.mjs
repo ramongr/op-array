@@ -98,7 +98,10 @@ function stripLeadingH1(body) {
   return lines.join('\n');
 }
 
-async function syncOne(/** @type {(typeof pages)[number]} */ page) {
+/**
+ * @param {(typeof pages)[number]} page
+ */
+async function syncOne(page) {
   const srcPath = resolve(repoRoot, page.src);
   const destPath = resolve(contentRoot, page.dest);
   const raw = await readFile(srcPath, 'utf8');
