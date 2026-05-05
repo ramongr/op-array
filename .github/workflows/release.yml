@@ -12,7 +12,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  issues: read
+  issues: write
 
 jobs:
   prepare:
@@ -56,11 +56,10 @@ jobs:
             exit 1
           fi
 
-      - name: Install mise
-        uses: jdx/mise-action@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          tool_versions: |
-            node 22
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -117,20 +116,41 @@ jobs:
           Automated release PR for milestone \`$MILESTONE\`. Bumps \`package.json\` to \`$VERSION\` and date-stamps the \`## [$VERSION]\` heading in \`CHANGELOG.md\`.
 
           ## What ships next
-          On merge, \`tag-on-release-merge.yml\` will push tag \`v$VERSION\`, which fires \`publish-on-tag.yml\` to publish to npm and create the GitHub Release with auto-generated notes from this milestone's PRs.
+          On merge, \`tag-on-release-merge.yml\` will push tag \`v$VERSION\` and explicitly invoke \`publish-on-tag.yml\` via \`gh workflow run\`. The publish workflow then runs \`npm publish --provenance --access public\` (npm Trusted Publishing via OIDC) and creates the GitHub Release with auto-generated notes from this milestone's PRs.
 
           ## Milestone PRs
           See https://github.com/${{ github.repository }}/milestone/${{ github.event.milestone.number }}?closed=1
           EOF
           )
 
+          # Open the PR without --milestone (the milestone is already
+          # closed at this point, and `gh` only resolves OPEN milestones
+          # by title -- see issue #64).
           PR_URL=$(gh pr create \
             --title "chore(release): $VERSION" \
             --base main \
             --head "$BRANCH" \
             --assignee ramongr \
-            --milestone "$MILESTONE" \
             --body "$BODY")
 
           echo "Opened $PR_URL"
+
+          # Attach the milestone via the REST API, which accepts the
+          # numeric milestone id and works regardless of milestone state.
+          # For workflow_dispatch, look up the (potentially closed) id.
+          MS_ID="${{ github.event.milestone.number }}"
+          if [[ -z "$MS_ID" ]]; then
+            MS_ID=$(gh api "repos/${{ github.repository }}/milestones?state=all" \
+              --jq ".[] | select(.title==\"$MILESTONE\") | .number")
+          fi
+          if [[ -n "$MS_ID" ]]; then
+            PR_NUMBER="${PR_URL##*/}"
+            gh api -X PATCH \
+              "repos/${{ github.repository }}/issues/$PR_NUMBER" \
+              -F "milestone=$MS_ID" >/dev/null
+            echo "Attached PR #$PR_NUMBER to milestone $MILESTONE (id $MS_ID)."
+          else
+            echo "::warning::Could not resolve milestone id for $MILESTONE; PR left unmilestoned."
+          fi
+
           gh pr merge "$PR_URL" --squash --auto

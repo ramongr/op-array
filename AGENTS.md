@@ -117,7 +117,7 @@ npm test
 npm run build
 ```
 
-Run these before pushing. CI runs the same matrix on Node 20 and 22.
+Run these before pushing. CI runs the same matrix on Node 20, 22, and 24.
 
 ## Git & PR workflow
 
