@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `range(values)`: difference between the largest and smallest value
   (a.k.a. extent / spread). Single pass. Throws `TypeError` on empty
   input.
+- `variance(values, mode?)`: population (`'population'`, default) or
+  sample (`'sample'`, Bessel's correction) variance. Throws
+  `TypeError` on empty input or on single-element input when
+  `mode === 'sample'`.
 
 ### Tooling
 

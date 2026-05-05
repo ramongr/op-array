@@ -10,6 +10,7 @@ import {
   range,
   subtract,
   sum,
+  variance,
 } from '../../src/numerical/index.js';
 
 describe('min', () => {
@@ -147,5 +148,41 @@ describe('range', () => {
     const input = [3, 1, 2];
     range(input);
     expect(input).toEqual([3, 1, 2]);
+  });
+});
+
+describe('variance', () => {
+  test('population variance by default', () => {
+    expect(variance([2, 4, 4, 4, 5, 5, 7, 9])).toBe(4);
+  });
+
+  test('sample variance with mode = "sample"', () => {
+    expect(variance([2, 4, 4, 4, 5, 5, 7, 9], 'sample')).toBeCloseTo(
+      4.571428571428571,
+      12,
+    );
+  });
+
+  test('returns 0 for a constant population', () => {
+    expect(variance([3, 3, 3])).toBe(0);
+  });
+
+  test('returns 0 for a single value (population)', () => {
+    expect(variance([5])).toBe(0);
+  });
+
+  test('throws on empty array', () => {
+    expect(() => variance([])).toThrow(TypeError);
+    expect(() => variance([], 'sample')).toThrow(TypeError);
+  });
+
+  test('throws on single value when mode = "sample"', () => {
+    expect(() => variance([5], 'sample')).toThrow(TypeError);
+  });
+
+  test('does not mutate the input', () => {
+    const input = [2, 4, 4, 4, 5, 5, 7, 9];
+    variance(input, 'sample');
+    expect(input).toEqual([2, 4, 4, 4, 5, 5, 7, 9]);
   });
 });
