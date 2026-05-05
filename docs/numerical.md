@@ -18,6 +18,7 @@ import {
   cumulativeSum,
   minBy,
   maxBy,
+  sumBy,
 } from 'op-array/numerical';
 ```
 
@@ -202,4 +203,21 @@ const users = [
   { name: 'Bob', profile: { age: 22 } },
 ];
 maxBy(users, 'profile.age'); // { name: 'Ana', profile: { age: 30 } }
+```
+
+## `sumBy(collection, key)`
+
+Sum of the numeric values at `key` (dot-delimited for nested paths)
+across every item in `collection`. Strict: any item where the
+resolved value is missing or not a `number` throws `TypeError`. Empty
+input returns `0` (matches `sum`). `NaN` propagates.
+
+```ts
+sumBy([{ total: 10 }, { total: 5 }], 'total'); // 15
+
+const orders = [
+  { shipping: { fee: 5 } },
+  { shipping: { fee: 7.5 } },
+];
+sumBy(orders, 'shipping.fee'); // 12.5
 ```

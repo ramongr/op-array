@@ -15,6 +15,7 @@ import {
   standardDeviation,
   subtract,
   sum,
+  sumBy,
   variance,
 } from '../../src/numerical/index.js';
 
@@ -505,6 +506,61 @@ describe('maxBy', () => {
     const items = [{ n: 3 }, { n: 9 }, { n: 2 }];
     const snapshot = [...items];
     maxBy(items, 'n');
+    expect(items).toEqual(snapshot);
+  });
+});
+
+describe('sumBy', () => {
+  test('sums numeric values at the key', () => {
+    expect(sumBy([{ total: 10 }, { total: 5 }, { total: 3 }], 'total')).toBe(18);
+  });
+
+  test('resolves dot-delimited nested paths', () => {
+    const orders = [
+      { shipping: { fee: 5 } },
+      { shipping: { fee: 7.5 } },
+      { shipping: { fee: 2 } },
+    ];
+    expect(sumBy(orders, 'shipping.fee')).toBe(14.5);
+  });
+
+  test('returns 0 for empty input', () => {
+    expect(sumBy([], 'total')).toBe(0);
+  });
+
+  test('handles a single item', () => {
+    expect(sumBy([{ n: 42 }], 'n')).toBe(42);
+  });
+
+  test('handles negatives and zero', () => {
+    expect(sumBy([{ n: -2 }, { n: 0 }, { n: 5 }], 'n')).toBe(3);
+  });
+
+  test('throws TypeError when the path is missing on any item', () => {
+    expect(() =>
+      sumBy([{ price: 5 }, { name: 'no-price' }], 'price'),
+    ).toThrow(/missing/);
+  });
+
+  test('throws TypeError when the resolved value is not a number', () => {
+    expect(() => sumBy([{ price: '5' }], 'price')).toThrow(/string/);
+    expect(() => sumBy([{ price: null }], 'price')).toThrow(/null/);
+  });
+
+  test('error message reports the offending item index', () => {
+    expect(() =>
+      sumBy([{ n: 1 }, { n: 2 }, { n: '3' }, { n: 4 }], 'n'),
+    ).toThrow(/item 2/);
+  });
+
+  test('propagates NaN (matches +)', () => {
+    expect(sumBy([{ n: 1 }, { n: Number.NaN }, { n: 3 }], 'n')).toBeNaN();
+  });
+
+  test('does not mutate the input', () => {
+    const items = [{ n: 1 }, { n: 2 }, { n: 3 }];
+    const snapshot = [...items];
+    sumBy(items, 'n');
     expect(items).toEqual(snapshot);
   });
 });
