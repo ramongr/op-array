@@ -11,3 +11,4 @@ export { range } from './range.js';
 export { variance } from './variance.js';
 export { standardDeviation } from './standardDeviation.js';
 export { quantile } from './quantile.js';
+export { cumulativeSum } from './cumulativeSum.js';

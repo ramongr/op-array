@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   average,
+  cumulativeSum,
   hasEvenLength,
   max,
   median,
@@ -292,5 +293,54 @@ describe('quantile', () => {
     expect(quantile([-0, 0], 0)).toBe(0);
     expect(quantile([-0, 0], 1)).toBe(0);
     expect(quantile([-0, 0], 0.5)).toBe(0);
+  });
+});
+
+describe('cumulativeSum', () => {
+  test('returns running totals', () => {
+    expect(cumulativeSum([1, 2, 3, 4])).toEqual([1, 3, 6, 10]);
+  });
+
+  test('returns [] for empty input', () => {
+    expect(cumulativeSum([])).toEqual([]);
+  });
+
+  test('output length equals input length', () => {
+    expect(cumulativeSum([5]).length).toBe(1);
+    expect(cumulativeSum([1, 2, 3, 4, 5]).length).toBe(5);
+  });
+
+  test('single element returns that element wrapped', () => {
+    expect(cumulativeSum([42])).toEqual([42]);
+  });
+
+  test('handles negative numbers', () => {
+    expect(cumulativeSum([1, -2, 3, -4])).toEqual([1, -1, 2, -2]);
+  });
+
+  test('handles zeros', () => {
+    expect(cumulativeSum([0, 0, 0])).toEqual([0, 0, 0]);
+  });
+
+  test('NaN poisons the current and all subsequent positions', () => {
+    const result = cumulativeSum([1, 2, Number.NaN, 4]);
+    expect(result[0]).toBe(1);
+    expect(result[1]).toBe(3);
+    expect(result[2]).toBeNaN();
+    expect(result[3]).toBeNaN();
+  });
+
+  test('Infinity + -Infinity yields NaN at and beyond that position', () => {
+    const result = cumulativeSum([1, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, 4]);
+    expect(result[0]).toBe(1);
+    expect(result[1]).toBe(Number.POSITIVE_INFINITY);
+    expect(result[2]).toBeNaN();
+    expect(result[3]).toBeNaN();
+  });
+
+  test('does not mutate the input', () => {
+    const input = [1, 2, 3, 4];
+    cumulativeSum(input);
+    expect(input).toEqual([1, 2, 3, 4]);
   });
 });
