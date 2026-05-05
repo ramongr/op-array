@@ -4,6 +4,16 @@ Conventions for any human or agent contributing to **op-array**. Read this
 before opening a PR. Everything below is enforced by review or by
 `npm run lint && npm run typecheck && npm test && npm run build`.
 
+> **v3 is in progress.** The conventions below describe the **v3 target
+> state** (data-first + options-object calling convention, dot-paths
+> everywhere, ESM-only). v2.x is in **patch-only mode**: bug-fix PRs that
+> ship as `2.x.y` keep v2.x's existing positional API and dual ESM+CJS
+> build untouched. Roadmaps:
+> [v3.0](https://github.com/ramongr/op-array/issues/86)
+> · [v3.1](https://github.com/ramongr/op-array/issues/87)
+> · [v3.2](https://github.com/ramongr/op-array/issues/88)
+> · [v3.3](https://github.com/ramongr/op-array/issues/89).
+
 ## Project layout
 
 ```
@@ -26,6 +36,64 @@ Categories: `collections`, `logical`, `numerical`, `positional`,
 `transformations`. Each category is also published as a subpath
 (`op-array/collections`, etc.); keep the category boundary intentional.
 
+## Calling convention
+
+Every function uses **data-first + options-object**:
+
+- The **first positional argument is the primary data** — the array (or
+  arrays) being operated on.
+- **Every subsequent argument folds into a single options object** with
+  named fields. No second/third/Nth positional argument.
+- Single-argument functions stay positional (`sum(values)`,
+  `unique(values)`, `first(values)`).
+
+```ts
+findBy(users, { key: 'profile.email', value: 'a@b' });
+groupBy(orders, { key: 'customer' });
+quantile(values, { q: 0.95 });
+flat(values, { depth: 2 });
+nth(values, { index: -1 });
+variance(values, { mode: 'sample' });
+```
+
+### Carve-out for pure-data multi-array functions
+
+Functions whose multiple arguments are all **primary data of equal
+status** keep them positional. There is no options object. This applies
+to:
+
+- Set operations: `intersection`, `union`, `except`,
+  `symmetricDifference`, `setEquals`, `isSubset`, `isSuperset`,
+  `isDisjoint`.
+- Membership predicates: `exists`, `existsAll`, `existsAny`.
+- Pair helpers: `zip` (the second array is data, not config).
+
+```ts
+intersection(left, right);
+isSubset(left, right);
+existsAll(source, items);
+```
+
+### Per-function `Options` type
+
+Every multi-arg function exports a named options type alongside it,
+formed as `<FunctionName>Options`:
+
+```ts
+export type FindByOptions<T, P extends Paths<T>> = {
+  key: P;
+  value: Get<T, P>;
+};
+
+export function findBy<T, P extends Paths<T>>(
+  collection: readonly T[],
+  options: FindByOptions<T, P>,
+): T | undefined { … }
+```
+
+Both the function and its options type are re-exported from the
+category index.
+
 ## Code style
 
 - **Named `export function`** declarations only. No default exports, no
@@ -46,28 +114,37 @@ Categories: `collections`, `logical`, `numerical`, `positional`,
 Match the v2.0 precedent. New functions must pick the option that fits
 their category and document it.
 
-| Operation kind        | Empty input           | Examples            |
-|-----------------------|-----------------------|---------------------|
-| Additive aggregate    | identity (`0`)        | `sum`               |
-| Multiplicative / fold | `TypeError`           | `product`, `subtract`, `median` |
-| Statistical mean      | `NaN`                 | `average`           |
-| Set / list result     | `[]`                  | `mode`, `unique`, `intersection`, `pluck` |
-| Boolean predicate     | `false` (document)    | `exists`, `existsAll`, `existsAny` |
-| Map / index result    | `{}`                  | `keyBy`, `groupBy`, `countBy` |
-| Pair-of-lists result  | both empty            | `partition` -> `{ pass: [], fail: [] }` |
-| Find item by criterion | `undefined`          | `minBy`, `maxBy` |
+| Operation kind         | Empty input          | Examples            |
+|------------------------|----------------------|---------------------|
+| Additive aggregate     | identity (`0`)       | `sum`, `cumulativeSum` (returns `[]`) |
+| Multiplicative / fold  | `TypeError`          | `product`, `subtract`, `median`, `min`, `max`, `range`, `variance`, `standardDeviation`, `quantile` |
+| Statistical mean       | `NaN`                | `average`, `averageBy` |
+| Set / list result      | `[]`                 | `mode`, `unique`, `uniqueBy`, `pluck`, `compactNullish`, `compactFalsy`, `flat`, `intersection`, `union`, `except`, `symmetricDifference` |
+| Membership predicate   | `false` (empty source) | `exists`, `existsAny` |
+| Set-theoretic predicate | follow vacuous truth | `existsAll(_, [])` → `true`; `isSubset([], _)` → `true`; `isSuperset(_, [])` → `true`; `isDisjoint(_, [])` → `true`; `setEquals([], [])` → `true` |
+| Map / index result     | `{}` or `Map()`      | `keyBy`, `groupBy`, `countBy`, `occurrences` (returns `Map()`) |
+| Pair-of-lists result   | both empty           | `partition` -> `{ pass: [], fail: [] }` |
+| Find item by criterion | `undefined`          | `findBy`, `where` (returns `[]`), `first`, `last`, `nth`, `minBy`, `maxBy` |
 
-Throw `RangeError` for invalid numeric arguments (e.g. group size ≤ 0)
-and `TypeError` for empty arrays where the result is mathematically
-undefined.
+Throw `RangeError` for invalid numeric arguments (e.g. group size ≤ 0,
+quantile `q` outside `[0, 1]`) and `TypeError` for empty arrays where
+the result is mathematically undefined.
 
 ### Dot-path key access
 
-Any function that takes a `key: string` argument resolves it as a
-dot-delimited path through `src/shared/pathResolver.ts` (which delegates
-to `nestedObjectValue`). This is the single, consistent way to address
-nested fields across the API. Never accept a callback as an alternative
-overload.
+All key and path access in the public API uses dot-delimited paths,
+resolved through `src/shared/pathResolver.ts` (which delegates to
+`nestedObjectValue`). This is the single, consistent way to address
+nested fields. There are no shallow-key overloads, no `keyof T`-typed
+shortcuts, and no callback alternatives.
+
+This applies to:
+
+- single-key fields on options objects: `key: 'profile.email'`,
+- multi-key fields: `paths: ['user.name', 'contact.email']` (e.g. on
+  `extract`),
+- typed via the shared `Paths<T>` helper, with results inferred via
+  `Get<T, P>`.
 
 ```ts
 import { pathResolver } from '../shared/pathResolver.js';
@@ -99,9 +176,12 @@ function must update **all three** of:
    runnable example. Keep the same heading shape as siblings:
    `## ` + `` `name(arg, arg)` ``.
 2. `README.md` — the **API overview** table.
-3. `CHANGELOG.md` — an entry under `## [2.1.0]` (Keep a Changelog
+3. `CHANGELOG.md` — an entry under `## [Unreleased]` (Keep a Changelog
    format). Group entries under `### Added`, `### Changed`,
-   `### Fixed`, `### Tooling`.
+   `### Removed`, `### Fixed`, `### Tooling`. Breaking-change PRs
+   targeting the `v3.0` milestone must also include a **Migration**
+   section in the PR body — these get aggregated into `MIGRATION-v3.md`
+   before tagging `3.0.0`.
 
 Internal-only changes (under `src/shared/`) only need the `CHANGELOG`
 entry under `### Tooling` or no entry at all.
