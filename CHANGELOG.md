@@ -51,6 +51,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Tooling
 
+- `release.yml` CHANGELOG-heading validator now accepts the
+  Keep-a-Changelog `## [VERSION] - Unreleased` form (previously only
+  bare `## [VERSION]` was accepted, causing the v2.2 release run to
+  fail at the date-stamp step).
 - Replaced ESLint + `typescript-eslint` with [oxlint](https://oxc.rs).
   Lint config moved from `eslint.config.js` to `.oxlintrc.json`. The
   rule set was tightened: `correctness`, `suspicious`, and `perf`

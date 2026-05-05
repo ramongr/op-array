@@ -92,11 +92,11 @@ jobs:
         run: |
           npm version "$VERSION" --no-git-tag-version
           DATE=$(date -u +%Y-%m-%d)
-          if ! grep -q "^## \[$VERSION\]$" CHANGELOG.md; then
+          if ! grep -qE "^## \[$VERSION\]( - Unreleased)?$" CHANGELOG.md; then
             echo "::error::CHANGELOG.md is missing an unreleased '## [$VERSION]' heading."
             exit 1
           fi
-          sed -i "s|^## \[$VERSION\]$|## [$VERSION] - $DATE|" CHANGELOG.md
+          sed -i -E "s|^## \[$VERSION\]( - Unreleased)?$|## [$VERSION] - $DATE|" CHANGELOG.md
           echo "Bumped to $VERSION and stamped CHANGELOG with $DATE."
 
       - name: Create release branch and PR
