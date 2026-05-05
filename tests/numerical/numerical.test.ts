@@ -6,6 +6,7 @@ import {
   max,
   median,
   min,
+  minBy,
   mode,
   product,
   quantile,
@@ -342,5 +343,74 @@ describe('cumulativeSum', () => {
     const input = [1, 2, 3, 4];
     cumulativeSum(input);
     expect(input).toEqual([1, 2, 3, 4]);
+  });
+});
+
+describe('minBy', () => {
+  test('returns the item with the smallest value at the key', () => {
+    const items = [{ price: 9 }, { price: 3 }, { price: 7 }];
+    expect(minBy(items, 'price')).toEqual({ price: 3 });
+  });
+
+  test('resolves dot-delimited nested paths', () => {
+    const users = [
+      { name: 'Ana', profile: { age: 30 } },
+      { name: 'Bob', profile: { age: 22 } },
+      { name: 'Cid', profile: { age: 41 } },
+    ];
+    expect(minBy(users, 'profile.age')).toEqual({
+      name: 'Bob',
+      profile: { age: 22 },
+    });
+  });
+
+  test('returns undefined for empty input', () => {
+    expect(minBy([], 'price')).toBeUndefined();
+  });
+
+  test('first occurrence wins on ties', () => {
+    const items = [
+      { id: 'a', n: 5 },
+      { id: 'b', n: 1 },
+      { id: 'c', n: 1 },
+    ];
+    expect(minBy(items, 'n')).toEqual({ id: 'b', n: 1 });
+  });
+
+  test('excludes items where the path is missing', () => {
+    const items = [{ price: 5 }, { name: 'no-price' }, { price: 2 }];
+    expect(minBy(items, 'price')).toEqual({ price: 2 });
+  });
+
+  test('excludes items whose value is not a number', () => {
+    const items = [
+      { price: '3' },
+      { price: 5 },
+      { price: null },
+      { price: 2 },
+    ];
+    expect(minBy(items, 'price')).toEqual({ price: 2 });
+  });
+
+  test('excludes NaN values', () => {
+    const items = [{ n: Number.NaN }, { n: 4 }, { n: Number.NaN }];
+    expect(minBy(items, 'n')).toEqual({ n: 4 });
+  });
+
+  test('returns undefined when no item has a comparable numeric value', () => {
+    const items = [{ price: null }, { price: '3' }, {}];
+    expect(minBy(items, 'price')).toBeUndefined();
+  });
+
+  test('handles negative numbers and zero', () => {
+    const items = [{ n: -1 }, { n: 0 }, { n: -5 }, { n: 3 }];
+    expect(minBy(items, 'n')).toEqual({ n: -5 });
+  });
+
+  test('does not mutate the input', () => {
+    const items = [{ n: 3 }, { n: 1 }, { n: 2 }];
+    const snapshot = [...items];
+    minBy(items, 'n');
+    expect(items).toEqual(snapshot);
   });
 });
