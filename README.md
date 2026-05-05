@@ -3,10 +3,13 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/123da94caf5cc7178bec/maintainability)](https://codeclimate.com/github/ramongr/op-array/maintainability)
 [![codecov](https://codecov.io/gh/ramongr/op-array/branch/main/graph/badge.svg?token=nWzOn3AxHs)](https://codecov.io/gh/ramongr/op-array)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-ramongr.github.io%2Fop--array-blue)](https://ramongr.github.io/op-array)
 
 A small, tree-shakable, **functional** utility library that fills the gaps
 in JavaScript's built-in `Array` API. Written in TypeScript, ships ESM + CJS
 builds with first-class type definitions.
+
+Full documentation: <https://ramongr.github.io/op-array>
 
 > **v2 is a complete rewrite.** v1 mutated `Array.prototype`. v2 ships only
 > standalone functions. See [CHANGELOG.md](CHANGELOG.md) for the migration

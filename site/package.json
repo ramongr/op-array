@@ -1,0 +1,19 @@
+{
+  "name": "op-array-docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run sync && astro dev",
+    "start": "npm run sync && astro dev",
+    "build": "npm run sync && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "sync": "node scripts/sync-docs.mjs"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.30.3",
+    "astro": "^5.1.1",
+    "sharp": "^0.33.5"
+  }
+}

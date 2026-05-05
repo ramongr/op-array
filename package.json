@@ -94,6 +94,10 @@
     "test:watch": "vitest",
     "lint": "oxlint src tests",
     "typecheck": "tsc --noEmit",
+    "docs:install": "npm --prefix site install",
+    "docs:dev": "npm --prefix site run dev",
+    "docs:build": "npm --prefix site run build",
+    "docs:preview": "npm --prefix site run preview",
     "prepublishOnly": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "engines": {
