@@ -21,11 +21,13 @@ export function sumBy<T>(collection: readonly T[], key: string): number {
   const at = pathResolver(key);
   let total = 0;
 
-  for (const item of collection) {
-    const v = at(item);
+  for (let i = 0; i < collection.length; i++) {
+    const v = at(collection[i]);
     if (typeof v !== 'number') {
+      const kind =
+        v === null ? 'null' : v === undefined ? 'missing' : typeof v;
       throw new TypeError(
-        `sumBy: value at "${key}" is not a number (got ${v === undefined ? 'undefined' : typeof v})`,
+        `sumBy: value at "${key}" on item ${i} is not a number (${kind})`,
       );
     }
     total += v;

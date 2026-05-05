@@ -539,12 +539,18 @@ describe('sumBy', () => {
   test('throws TypeError when the path is missing on any item', () => {
     expect(() =>
       sumBy([{ price: 5 }, { name: 'no-price' }], 'price'),
-    ).toThrow(TypeError);
+    ).toThrow(/missing/);
   });
 
   test('throws TypeError when the resolved value is not a number', () => {
-    expect(() => sumBy([{ price: '5' }], 'price')).toThrow(TypeError);
-    expect(() => sumBy([{ price: null }], 'price')).toThrow(TypeError);
+    expect(() => sumBy([{ price: '5' }], 'price')).toThrow(/string/);
+    expect(() => sumBy([{ price: null }], 'price')).toThrow(/null/);
+  });
+
+  test('error message reports the offending item index', () => {
+    expect(() =>
+      sumBy([{ n: 1 }, { n: 2 }, { n: '3' }, { n: 4 }], 'n'),
+    ).toThrow(/item 2/);
   });
 
   test('propagates NaN (matches +)', () => {
