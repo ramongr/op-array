@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Tooling
 
+- v3 planning: opened the
+  [v3.0](https://github.com/ramongr/op-array/issues/86),
+  [v3.1](https://github.com/ramongr/op-array/issues/87),
+  [v3.2](https://github.com/ramongr/op-array/issues/88), and
+  [v3.3](https://github.com/ramongr/op-array/issues/89) milestones with
+  roadmap issues and amended `AGENTS.md` to describe the v3 target
+  state: data-first + options-object calling convention (with a
+  carve-out for set/predicate/pair-helper functions whose multiple args
+  are pure data), dot-paths everywhere, per-function `Options` types,
+  and a richer empty-input table covering the v3 contract changes
+  (`existsAll` vacuous truth, `min`/`max` throwing on empty, the
+  `compact` split). v2.x is now in patch-only mode for the duration of
+  v3 work.
 - Documentation site: published the existing `docs/*.md` and
   `CHANGELOG.md` to <https://ramongr.github.io/op-array> via an Astro
   Starlight project under `site/`. The root markdown remains the source
