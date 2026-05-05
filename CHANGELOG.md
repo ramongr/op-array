@@ -62,7 +62,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   etc.). Tests get a small relaxed override.
 - Bumped `tsconfig.json` `lib` to `ES2023` so the codebase can use
   `Array.prototype.toSorted` (Node ≥20 already required at runtime).
-- CI matrix expanded to Node 20, 22, and 24.
+- CI matrix updated to Node 22 (Maintenance LTS), 24 (Active LTS),
+  and 25 (Current). Node 20 dropped now that it has reached EOL.
+  `package.json` `engines.node` bumped from `>=20` to `>=22`.
 - Hardened the milestone-driven release pipeline (`release.yml`,
   `tag-on-release-merge.yml`, `publish-on-tag.yml`) so the v2.2
   release runs end-to-end without manual intervention:

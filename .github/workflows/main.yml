@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['20', '22', '24']
+        node: ['22', '24', '25']
 
     steps:
       - uses: actions/checkout@v4
@@ -42,7 +42,7 @@ jobs:
         run: npm run build
 
       - name: Upload coverage to Codecov
-        if: matrix.node == '22'
+        if: matrix.node == '24'
         uses: codecov/codecov-action@v4
         with:
           files: ./coverage/lcov.info
