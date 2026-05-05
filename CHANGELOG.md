@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `mode === 'sample'`.
 - `standardDeviation(values, mode?)`: `Math.sqrt(variance(values, mode))`.
   Same modes and throw conditions as `variance`.
+- `quantile(values, q)`: quantile via linear interpolation between
+  adjacent ordered values (R-7 / Excel / NumPy-default). Generalises
+  `median` (`quantile(values, 0.5)`). Throws `TypeError` on empty
+  input and `RangeError` when `q` is outside `[0, 1]` or is `NaN`.
 
 ### Tooling
 

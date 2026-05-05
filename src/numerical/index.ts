@@ -10,3 +10,4 @@ export { mode } from './mode.js';
 export { range } from './range.js';
 export { variance } from './variance.js';
 export { standardDeviation } from './standardDeviation.js';
+export { quantile } from './quantile.js';
