@@ -64,7 +64,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Array.prototype.toSorted` (Node ≥20 already required at runtime).
 - CI matrix updated to Node 22 (Maintenance LTS), 24 (Active LTS),
   and 25 (Current). Node 20 dropped now that it has reached EOL.
-  `package.json` `engines.node` bumped from `>=20` to `>=22`.
 - Hardened the milestone-driven release pipeline (`release.yml`,
   `tag-on-release-merge.yml`, `publish-on-tag.yml`) so the v2.2
   release runs end-to-end without manual intervention:
@@ -85,6 +84,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Minimum supported Node version is now 22.** `package.json`
+  `engines.node` bumped from `>=20` to `>=22` now that Node 20 has
+  reached end-of-life. Consumers still on Node 20 will see an
+  `EBADENGINE` warning from npm on install.
 - `compact` uses the idiomatic `.filter(Boolean) as NonNullable<T>[]`.
 - `unique`, `union`, `occurrences` use spread instead of `Array.from`.
 - `median` uses `Array.prototype.toSorted` instead of

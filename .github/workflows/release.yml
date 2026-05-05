@@ -141,7 +141,8 @@ jobs:
           MS_ID="${{ github.event.milestone.number }}"
           if [[ -z "$MS_ID" ]]; then
             MS_ID=$(gh api "repos/${{ github.repository }}/milestones?state=all" \
-              --jq ".[] | select(.title==\"$MILESTONE\") | .number")
+              --jq ".[] | select(.title==\"$MILESTONE\") | .number" \
+              | head -n1)
           fi
           if [[ -n "$MS_ID" ]]; then
             PR_NUMBER="${PR_URL##*/}"

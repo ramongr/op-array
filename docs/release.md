@@ -92,6 +92,15 @@ already on npm (the `npm view` pre-flight check), so re-running after
 a successful publish is safe — it will simply error out at the
 sanity check.
 
+> **Re-merging a release branch.** If a release PR is reverted and
+> re-merged, `tag-on-release-merge.yml` will fall through to the
+> publish dispatch even when the tag already exists. The dispatch
+> uses `--ref "$TAG"`, so publish runs against the **existing tag's
+> tree**, not the new merge commit. If the re-merge introduced new
+> code that should be published, delete the tag (`git push --delete
+> origin v2.x.0 && git tag -d v2.x.0`) before re-merging so the
+> workflow re-creates it at the new commit.
+
 ## Versioning rules
 
 - Milestone titles must match `vMAJOR.MINOR` (e.g. `v2.2`).
