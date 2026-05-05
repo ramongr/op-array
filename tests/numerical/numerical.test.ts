@@ -285,4 +285,12 @@ describe('quantile', () => {
     quantile(input, 0.5);
     expect(input).toEqual([3, 1, 4, 1, 5, 9, 2, 6]);
   });
+
+  test('treats -0 and 0 as equal (matches min/median signed-zero behaviour)', () => {
+    // Whichever zero ends up at index 0 after a numeric sort is engine-
+    // defined; both are valid representations of zero and compare equal.
+    expect(quantile([-0, 0], 0)).toBe(0);
+    expect(quantile([-0, 0], 1)).toBe(0);
+    expect(quantile([-0, 0], 0.5)).toBe(0);
+  });
 });

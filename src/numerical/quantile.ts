@@ -23,7 +23,10 @@ export function quantile(values: readonly number[], q: number): number {
   if (values.length === 0) {
     throw new TypeError('quantile: array must contain at least one number');
   }
-  if (!(q >= 0 && q <= 1)) {
+  if (Number.isNaN(q)) {
+    throw new RangeError('quantile: q must be a number, got NaN');
+  }
+  if (q < 0 || q > 1) {
     throw new RangeError('quantile: q must be in the range [0, 1]');
   }
 
