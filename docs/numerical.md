@@ -14,6 +14,7 @@ import {
   range,
   variance,
   standardDeviation,
+  quantile,
 } from 'op-array/numerical';
 ```
 
@@ -123,4 +124,27 @@ propagates to the result.
 ```ts
 standardDeviation([2, 4, 4, 4, 5, 5, 7, 9]);           // 2
 standardDeviation([2, 4, 4, 4, 5, 5, 7, 9], 'sample'); // ≈ 2.1380…
+```
+
+## `quantile(values, q)`
+
+Quantile of `values` using linear interpolation between adjacent
+ordered values (the "R-7" / Excel / NumPy-default method, which
+generalises `median` so that `quantile(values, 0.5)` agrees with
+`median(values)`).
+
+- `q = 0` returns the minimum, `q = 1` the maximum.
+- Sorts numerically, does not mutate the input.
+- Any `NaN` in the input propagates to the result (matches `variance`
+  and `standardDeviation`).
+
+**Throws `TypeError`** on empty input. **Throws `RangeError`** when
+`q` is outside `[0, 1]` or is `NaN`.
+
+```ts
+quantile([1, 2, 3, 4], 0.5);  // 2.5
+quantile([1, 2, 3, 4], 0.25); // 1.75
+quantile([1, 2, 3, 4], 0.75); // 3.25
+quantile([1, 2, 3, 4], 0);    // 1
+quantile([1, 2, 3, 4], 1);    // 4
 ```

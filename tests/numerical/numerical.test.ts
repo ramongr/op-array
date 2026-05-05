@@ -7,6 +7,7 @@ import {
   min,
   mode,
   product,
+  quantile,
   range,
   standardDeviation,
   subtract,
@@ -230,5 +231,58 @@ describe('standardDeviation', () => {
     const input = [2, 4, 4, 4, 5, 5, 7, 9];
     standardDeviation(input, 'sample');
     expect(input).toEqual([2, 4, 4, 4, 5, 5, 7, 9]);
+  });
+});
+
+describe('quantile', () => {
+  test('q = 0.5 matches the median (odd length)', () => {
+    expect(quantile([3, 1, 2], 0.5)).toBe(2);
+  });
+
+  test('q = 0.5 matches the median (even length, interpolated)', () => {
+    expect(quantile([1, 2, 3, 4], 0.5)).toBe(2.5);
+  });
+
+  test('linear interpolation between adjacent ordered values', () => {
+    expect(quantile([1, 2, 3, 4], 0.25)).toBe(1.75);
+    expect(quantile([1, 2, 3, 4], 0.75)).toBe(3.25);
+  });
+
+  test('q = 0 returns the minimum, q = 1 returns the maximum', () => {
+    expect(quantile([5, 1, 9, 3], 0)).toBe(1);
+    expect(quantile([5, 1, 9, 3], 1)).toBe(9);
+  });
+
+  test('single element returns that value for any q', () => {
+    expect(quantile([42], 0)).toBe(42);
+    expect(quantile([42], 0.3)).toBe(42);
+    expect(quantile([42], 1)).toBe(42);
+  });
+
+  test('sorts numerically, not lexicographically', () => {
+    expect(quantile([10, 2, 1], 0.5)).toBe(2);
+  });
+
+  test('throws TypeError on empty input', () => {
+    expect(() => quantile([], 0.5)).toThrow(TypeError);
+  });
+
+  test('throws RangeError when q is outside [0, 1]', () => {
+    expect(() => quantile([1, 2, 3], -0.1)).toThrow(RangeError);
+    expect(() => quantile([1, 2, 3], 1.1)).toThrow(RangeError);
+  });
+
+  test('throws RangeError when q is NaN', () => {
+    expect(() => quantile([1, 2, 3], Number.NaN)).toThrow(RangeError);
+  });
+
+  test('propagates NaN in the input', () => {
+    expect(quantile([1, Number.NaN, 3], 0.5)).toBeNaN();
+  });
+
+  test('does not mutate the input', () => {
+    const input = [3, 1, 4, 1, 5, 9, 2, 6];
+    quantile(input, 0.5);
+    expect(input).toEqual([3, 1, 4, 1, 5, 9, 2, 6]);
   });
 });
