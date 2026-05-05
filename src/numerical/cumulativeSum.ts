@@ -16,8 +16,8 @@
 export function cumulativeSum(values: readonly number[]): number[] {
   const result: number[] = [];
   let running = 0;
-  for (let i = 0; i < values.length; i++) {
-    running += values[i] as number;
+  for (const v of values) {
+    running += v;
     result.push(running);
   }
   return result;

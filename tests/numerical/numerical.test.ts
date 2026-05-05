@@ -330,6 +330,14 @@ describe('cumulativeSum', () => {
     expect(result[3]).toBeNaN();
   });
 
+  test('Infinity + -Infinity yields NaN at and beyond that position', () => {
+    const result = cumulativeSum([1, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, 4]);
+    expect(result[0]).toBe(1);
+    expect(result[1]).toBe(Number.POSITIVE_INFINITY);
+    expect(result[2]).toBeNaN();
+    expect(result[3]).toBeNaN();
+  });
+
   test('does not mutate the input', () => {
     const input = [1, 2, 3, 4];
     cumulativeSum(input);
