@@ -30,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   adjacent ordered values (R-7 / Excel / NumPy-default). Generalises
   `median` (`quantile(values, 0.5)`). Throws `TypeError` on empty
   input and `RangeError` when `q` is outside `[0, 1]` or is `NaN`.
+- `cumulativeSum(values)`: running totals. Returns an array of the
+  same length where each element is the sum of all input values up to
+  and including that index. Returns `[]` for empty input.
 
 ### Tooling
 

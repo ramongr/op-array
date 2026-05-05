@@ -15,6 +15,7 @@ import {
   variance,
   standardDeviation,
   quantile,
+  cumulativeSum,
 } from 'op-array/numerical';
 ```
 
@@ -147,4 +148,16 @@ quantile([1, 2, 3, 4], 0.25); // 1.75
 quantile([1, 2, 3, 4], 0.75); // 3.25
 quantile([1, 2, 3, 4], 0);    // 1
 quantile([1, 2, 3, 4], 1);    // 4
+```
+
+## `cumulativeSum(values)`
+
+Running totals: returns an array of the same length where each element
+is the sum of all input values up to and including that index. Returns
+`[]` for empty input. Any `NaN` poisons that position and every
+subsequent position.
+
+```ts
+cumulativeSum([1, 2, 3, 4]); // [1, 3, 6, 10]
+cumulativeSum([]);           // []
 ```
