@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sample (`'sample'`, Bessel's correction) variance. Throws
   `TypeError` on empty input or on single-element input when
   `mode === 'sample'`.
+- `standardDeviation(values, mode?)`: `Math.sqrt(variance(values, mode))`.
+  Same modes and throw conditions as `variance`.
 
 ### Tooling
 

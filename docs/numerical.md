@@ -13,6 +13,7 @@ import {
   mode,
   range,
   variance,
+  standardDeviation,
 } from 'op-array/numerical';
 ```
 
@@ -111,4 +112,15 @@ squared deviations).
 variance([2, 4, 4, 4, 5, 5, 7, 9]);           // 4
 variance([2, 4, 4, 4, 5, 5, 7, 9], 'sample'); // ≈ 4.5714…
 variance([5]);                                // 0  (population)
+```
+
+## `standardDeviation(values, mode?)`
+
+Square root of `variance(values, mode)`. Same `'population'` /
+`'sample'` modes and same throw conditions. Any `NaN` in the input
+propagates to the result.
+
+```ts
+standardDeviation([2, 4, 4, 4, 5, 5, 7, 9]);           // 2
+standardDeviation([2, 4, 4, 4, 5, 5, 7, 9], 'sample'); // ≈ 2.1380…
 ```
