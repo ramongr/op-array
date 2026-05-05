@@ -17,6 +17,7 @@ import {
   quantile,
   cumulativeSum,
   minBy,
+  maxBy,
 } from 'op-array/numerical';
 ```
 
@@ -181,4 +182,24 @@ const users = [
   { name: 'Bob', profile: { age: 22 } },
 ];
 minBy(users, 'profile.age'); // { name: 'Bob', profile: { age: 22 } }
+```
+
+## `maxBy(collection, key)`
+
+Returns the item with the largest numeric value at `key`
+(dot-delimited for nested paths), or `undefined` when no item has a
+comparable numeric value. Returns the source item, not the resolved
+numeric value. Empty input returns `undefined`. Ties resolve to the
+first occurrence. Items where the resolved value is missing, `NaN`,
+or not a `number` are excluded from comparison.
+
+```ts
+const products = [{ price: 9 }, { price: 3 }, { price: 7 }];
+maxBy(products, 'price'); // { price: 9 }
+
+const users = [
+  { name: 'Ana', profile: { age: 30 } },
+  { name: 'Bob', profile: { age: 22 } },
+];
+maxBy(users, 'profile.age'); // { name: 'Ana', profile: { age: 30 } }
 ```
