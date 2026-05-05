@@ -4,6 +4,8 @@
  *
  * - `mode = 'population'` (default) divides by `n` (σ²).
  * - `mode = 'sample'` divides by `n - 1` (s², Bessel's correction).
+ * - Propagates `NaN`: any `NaN` in the input makes the result `NaN`,
+ *   matching `range` / `min` / `max`.
  *
  * @throws {TypeError} on empty input, or on single-element input when
  *   `mode === 'sample'` (division by zero).

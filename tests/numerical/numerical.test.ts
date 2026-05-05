@@ -180,6 +180,11 @@ describe('variance', () => {
     expect(() => variance([5], 'sample')).toThrow(TypeError);
   });
 
+  test('propagates NaN (matches range/min/max)', () => {
+    expect(variance([1, Number.NaN, 3])).toBeNaN();
+    expect(variance([1, 2, Number.NaN], 'sample')).toBeNaN();
+  });
+
   test('does not mutate the input', () => {
     const input = [2, 4, 4, 4, 5, 5, 7, 9];
     variance(input, 'sample');

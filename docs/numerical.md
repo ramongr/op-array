@@ -102,12 +102,13 @@ squared deviations).
 
 - `mode = 'population'` (default) divides by `n` (σ²).
 - `mode = 'sample'` divides by `n − 1` (s², Bessel's correction).
+- Any `NaN` in the input propagates to the result (matches `range`).
 
 **Throws `TypeError`** on empty input, or on single-element input when
 `mode === 'sample'`.
 
 ```ts
 variance([2, 4, 4, 4, 5, 5, 7, 9]);           // 4
-variance([2, 4, 4, 4, 5, 5, 7, 9], 'sample'); // 4.571428571428571
+variance([2, 4, 4, 4, 5, 5, 7, 9], 'sample'); // ≈ 4.5714…
 variance([5]);                                // 0  (population)
 ```
