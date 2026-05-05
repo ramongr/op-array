@@ -57,7 +57,7 @@ to address fields is intentional.
 |---|---|
 | **Collections** | `findBy`, `findById`, `where`, `extract`, `pluck`, `keyBy`, `groupBy`, `countBy` |
 | **Logical** | `intersection`, `except`, `union`, `exists`, `existsAll`, `existsAny`, `equals`, `symmetricDifference`, `isSubset`, `isSuperset`, `isDisjoint` |
-| **Numerical** | `min`, `max`, `sum`, `subtract`, `product`, `average`, `hasEvenLength`, `median`, `mode`, `range`, `variance` |
+| **Numerical** | `min`, `max`, `sum`, `subtract`, `product`, `average`, `hasEvenLength`, `median`, `mode`, `range`, `variance`, `standardDeviation` |
 | **Positional** | `first`, `second`, `third`, `last` |
 | **Transformations** | `unique`, `uniqueBy`, `flat`, `inGroups`, `inGroupsOf`, `occurrences`, `compact`, `compactNullish` |
 

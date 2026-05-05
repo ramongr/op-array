@@ -8,6 +8,7 @@ import {
   mode,
   product,
   range,
+  standardDeviation,
   subtract,
   sum,
   variance,
@@ -188,6 +189,46 @@ describe('variance', () => {
   test('does not mutate the input', () => {
     const input = [2, 4, 4, 4, 5, 5, 7, 9];
     variance(input, 'sample');
+    expect(input).toEqual([2, 4, 4, 4, 5, 5, 7, 9]);
+  });
+});
+
+describe('standardDeviation', () => {
+  test('population standard deviation by default', () => {
+    expect(standardDeviation([2, 4, 4, 4, 5, 5, 7, 9])).toBe(2);
+  });
+
+  test('sample standard deviation with mode = "sample"', () => {
+    expect(standardDeviation([2, 4, 4, 4, 5, 5, 7, 9], 'sample')).toBeCloseTo(
+      Math.sqrt(32 / 7),
+      12,
+    );
+  });
+
+  test('returns 0 for a constant population', () => {
+    expect(standardDeviation([3, 3, 3])).toBe(0);
+  });
+
+  test('returns 0 for a single value (population)', () => {
+    expect(standardDeviation([5])).toBe(0);
+  });
+
+  test('throws on empty array', () => {
+    expect(() => standardDeviation([])).toThrow(TypeError);
+    expect(() => standardDeviation([], 'sample')).toThrow(TypeError);
+  });
+
+  test('throws on single value when mode = "sample"', () => {
+    expect(() => standardDeviation([5], 'sample')).toThrow(TypeError);
+  });
+
+  test('propagates NaN', () => {
+    expect(standardDeviation([1, Number.NaN, 3])).toBeNaN();
+  });
+
+  test('does not mutate the input', () => {
+    const input = [2, 4, 4, 4, 5, 5, 7, 9];
+    standardDeviation(input, 'sample');
     expect(input).toEqual([2, 4, 4, 4, 5, 5, 7, 9]);
   });
 });
