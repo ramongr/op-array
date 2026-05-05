@@ -4,6 +4,20 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Tooling
+
+- Documentation site: published the existing `docs/*.md` and
+  `CHANGELOG.md` to <https://ramongr.github.io/op-array> via an Astro
+  Starlight project under `site/`. The root markdown remains the source
+  of truth and is synced into the site at build time by
+  `site/scripts/sync-docs.mjs`. Deploys run from
+  `.github/workflows/docs.yml` on every push to `main` that touches
+  `docs/`, `CHANGELOG.md`, or `site/`; PRs run a build smoke check.
+  New scripts: `npm run docs:install`, `docs:dev`, `docs:build`,
+  `docs:preview`.
+
 ## [2.2.0] - 2026-05-05
 
 ### Added

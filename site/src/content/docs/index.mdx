@@ -1,0 +1,84 @@
+---
+title: op-array
+description: A small, tree-shakable functional utility library that fills the gaps in JavaScript's built-in Array API.
+template: splash
+hero:
+  tagline: Functional utilities for JavaScript arrays. Tree-shakable, typed, ESM + CJS.
+  actions:
+    - text: Browse the API
+      link: /op-array/collections/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/ramongr/op-array
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Install
+
+```sh
+npm install op-array
+```
+
+## What's in the box
+
+<CardGrid>
+  <Card title="Collections" icon="document">
+    Lookup, grouping, and projection over arrays of objects:
+    `findBy`, `where`, `pluck`, `keyBy`, `groupBy`, `countBy`,
+    `partition`. [Read more &rarr;](/op-array/collections/)
+  </Card>
+  <Card title="Logical" icon="approve-check">
+    Predicates over membership and presence: `exists`, `existsAll`,
+    `existsAny`. [Read more &rarr;](/op-array/logical/)
+  </Card>
+  <Card title="Numerical" icon="seti:graphql">
+    Aggregations and statistics: `sum`, `product`, `average`,
+    `median`, `mode`, `subtract`. [Read more &rarr;](/op-array/numerical/)
+  </Card>
+  <Card title="Positional" icon="list-format">
+    Index- and position-based selection: `first`, `last`, `nth`,
+    `minBy`, `maxBy`. [Read more &rarr;](/op-array/positional/)
+  </Card>
+  <Card title="Transformations" icon="random">
+    Pure shape changes and folds: `unique`, `chunk`, `flatten`,
+    `intersection`, and friends. [Read more &rarr;](/op-array/transformations/)
+  </Card>
+  <Card title="Tree-shakable" icon="rocket">
+    Each category publishes a subpath
+    (`op-array/collections`, `op-array/numerical`, ...) so bundlers
+    only ship what you import.
+  </Card>
+</CardGrid>
+
+## Why op-array
+
+- **Standalone functions only.** No `Array.prototype` mutation; nothing
+  monkey-patched.
+- **TypeScript-first.** Every function ships with explicit types and
+  JSDoc.
+- **Predictable empty-input behaviour.** Documented per category &mdash;
+  see each API page for the exact contract.
+- **Dot-path key access.** Any function that takes a `key` resolves it
+  as a dot-delimited path (e.g. `'user.name'`).
+
+## Quick taste
+
+```ts
+import { groupBy, pluck } from 'op-array/collections';
+import { average } from 'op-array/numerical';
+
+const orders = [
+  { id: 1, customer: 'ana', total: 19 },
+  { id: 2, customer: 'bo',  total: 42 },
+  { id: 3, customer: 'ana', total: 11 },
+];
+
+groupBy(orders, 'customer');
+// { ana: [...], bo: [...] }
+
+average(pluck(orders, 'total'));
+// 24
+```
