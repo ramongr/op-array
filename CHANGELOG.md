@@ -41,6 +41,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `maxBy(collection, key)`: symmetric to `minBy` — item with the
   largest numeric value at the dot-delimited `key`. Same exclusion
   rules and tie-breaking.
+- `sumBy(collection, key)`: sum of the numeric values at the
+  dot-delimited `key`. Empty input returns `0` (matches `sum`).
+  Strict: throws `TypeError` if any item is missing the path or
+  resolves to a non-`number`. `NaN` propagates.
 
 ### Tooling
 
