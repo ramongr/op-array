@@ -382,6 +382,18 @@ describe('minBy', () => {
     expect(minBy(items, 'price')).toEqual({ price: 2 });
   });
 
+  test('excludes items where an intermediate path segment is missing', () => {
+    const items = [
+      { name: 'Ana', profile: { age: 30 } },
+      { name: 'Bob' }, // no profile at all
+      { name: 'Cid', profile: { age: 22 } },
+    ];
+    expect(minBy(items, 'profile.age')).toEqual({
+      name: 'Cid',
+      profile: { age: 22 },
+    });
+  });
+
   test('excludes items whose value is not a number', () => {
     const items = [
       { price: '3' },

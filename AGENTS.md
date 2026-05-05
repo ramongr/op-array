@@ -55,6 +55,7 @@ their category and document it.
 | Boolean predicate     | `false` (document)    | `exists`, `existsAll`, `existsAny` |
 | Map / index result    | `{}`                  | `keyBy`, `groupBy`, `countBy` |
 | Pair-of-lists result  | both empty            | `partition` -> `{ pass: [], fail: [] }` |
+| Find item by criterion | `undefined`          | `minBy`, `maxBy` |
 
 Throw `RangeError` for invalid numeric arguments (e.g. group size ≤ 0)
 and `TypeError` for empty arrays where the result is mathematically

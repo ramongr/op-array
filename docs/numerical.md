@@ -173,6 +173,12 @@ first occurrence. Items where the resolved value is missing, `NaN`,
 or not a `number` are excluded from comparison.
 
 ```ts
-minBy(products, 'price');
-minBy(users, 'profile.age');
+const products = [{ price: 9 }, { price: 3 }, { price: 7 }];
+minBy(products, 'price'); // { price: 3 }
+
+const users = [
+  { name: 'Ana', profile: { age: 30 } },
+  { name: 'Bob', profile: { age: 22 } },
+];
+minBy(users, 'profile.age'); // { name: 'Bob', profile: { age: 22 } }
 ```
